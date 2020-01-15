@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>My Nikola Site (Posts about kotlin)</title><link>https://example.com/</link><description></description><atom:link href="https://example.com/categories/kotlin.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:n.tesla@example.com"&gt;vikas verma&lt;/a&gt; </copyright><lastBuildDate>Wed, 15 Jan 2020 08:43:27 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Add swagger in kotlin project</title><link>https://example.com/posts/add-swagger-in-kotlin-project/</link><dc:creator>vikas verma</dc:creator><description>&lt;div&gt;&lt;p&gt;Write your post here.
+So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have the pretty URLs option enabled)&lt;/p&gt;
+&lt;p&gt;One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html", which means it will be open for the URL that ends in "some_folder" or "some_folder/".&lt;/p&gt;
+&lt;p&gt;This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexes) and as a side effect it disables "pretty URLs" for this page. So use with care.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/448b06903269273a7d6439726badad71.js"&gt;&lt;/script&gt;
+        &lt;noscript&gt;&lt;pre&gt;class EmployeeRouteConfig(implicit val system: ActorSystem) extends JsonUtils {
+  val employeeActor: ActorRef = system.actorOf(Props(new EmployeeActor()))
+
+  implicit val mat: ActorMaterializer = ActorMaterializer()
+
+
+  val getRoute: Route =
+
+    PathDirectives.pathPrefix("employee") {
+      concat(
+        path("create") {
+          post {
+            entity(as[EmployeeRequest]) { employee =&amp;gt;
+              val future = Patterns.ask(employeeActor, SAVE(employee), TimeUtils.timeoutMills)
+              Await.result(future, TimeUtils.atMostDuration)
+              RouteDirectives.complete(HttpEntity("Data saved successfully!"))
+            }
+          }
+        },
+
+        path("search") {
+          get {
+            val resultFuture = Patterns.ask(employeeActor, SEARCH_ALL, TimeUtils.timeoutMills)
+            val resultSource = Await.result(resultFuture, TimeUtils.atMostDuration).asInstanceOf[Source[Employee, NotUsed]]
+            val resultByteString = resultSource.map { it =&amp;gt; ByteString.apply(it.toJson.toString.getBytes()) }
+            RouteDirectives.complete(HttpEntity(ContentTypes.`text/plain(UTF-8)`, resultByteString))
+          }
+        },
+
+        path("update") {
+          put {
+            parameter("id") { id =&amp;gt;
+              entity(as[EmployeeRequest]) { employee =&amp;gt;
+                val future = Patterns.ask(employeeActor, UPDATE(employee, id), TimeUtils.timeoutMills)
+                Await.result(future, TimeUtils.atMostDuration)
+                RouteDirectives.complete(HttpEntity("Data updated saved successfully!"))
+              }
+            }
+          }
+        },
+
+        path("delete") {
+          delete {
+            parameter("id") { id =&amp;gt;
+              val resultFuture = Patterns.ask(employeeActor, DELETE(id), TimeUtils.timeoutMills)
+              Await.result(resultFuture, TimeUtils.atMostDuration)
+              RouteDirectives.complete(HttpEntity(s"Data updated saved successfully!"))
+            }
+          }
+        }
+      )
+    }
+}&lt;/pre&gt;&lt;/noscript&gt;&lt;/p&gt;
+&lt;p&gt;date
+Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (required for posts)&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)&lt;/dt&gt;
+&lt;dd&gt;&lt;p&gt;12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)&lt;/p&gt;
+&lt;p&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)
+12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)&lt;/p&gt;
+&lt;p&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)
+12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)&lt;/p&gt;
+&lt;p&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)
+12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)&lt;/p&gt;
+&lt;p&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)
+12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)&lt;/p&gt;
+&lt;p&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)
+12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)&lt;/p&gt;
+&lt;p&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)
+12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)&lt;/p&gt;
+&lt;p&gt;So, if the slug is "the-slug" the page generated would be "the-slug.html" or "the-slug/index.html" (if you have     the pretty URLs option enabled)
+12
+13 One special case is setting the slug to "index". This means the page generated would be "some_folder/index.html    ", which means it will be open for the URL that ends in "some_folder" or "some_folder/".
+14
+15 This is useful in some cases, in others may cause conflicts with other pages Nikola generates (like blog indexe    s) and as a side effect it disables "pretty URLs" for this page. So use with care.
+16
+17 date
+18 Date of the post, defaults to now. Multiple date formats are accepted. Adding a timezone is recommended. (requi    red for posts)
+:wq&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;&lt;/div&gt;</description><category>kotlin</category><category>swagger</category><guid>https://example.com/posts/add-swagger-in-kotlin-project/</guid><pubDate>Wed, 15 Jan 2020 08:25:23 GMT</pubDate></item></channel></rss>
