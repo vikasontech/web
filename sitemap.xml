@@ -6,147 +6,151 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>https://example.com/</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/2012/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/2012/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/2020/</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/2020/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/archive.html</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/archive.html</loc>
+  <lastmod>2020-01-16T15:37:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/authors/</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/authors/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/authors/roberto-alsina/</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/authors/roberto-alsina/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/authors/vikas-verma/</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/authors/vikas-verma/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/blog/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/blog/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/cat_nikola/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/cat_nikola/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/demo/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/cat_technical/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/kotlin/</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/demo/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/nikola/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/kotlin/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/python/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/nikola/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/swagger/</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/python/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/galleries/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/spring-boot/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/galleries/demo/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/swagger/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/listings/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/galleries/</loc>
+  <lastmod>2020-01-16T14:06:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/listings/__pycache__/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/galleries/demo/</loc>
+  <lastmod>2020-01-16T14:06:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/listings/hello.py.html</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/listings/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/about-nikola/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/listings/hello.py.html</loc>
+  <lastmod>2020-01-16T15:37:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/bootstrap-demo/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/about-nikola/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/charts/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/bootstrap-demo/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/creating-a-theme/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/charts/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/dr-nikolas-vendetta/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/creating-a-theme/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/extending/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/dr-nikolas-vendetta/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/handbook/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/extending/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/internals/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/handbook/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/listings-demo/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/internals/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/path-handlers/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/listings-demo/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/quickref/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/path-handlers/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/quickstart/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/quickref/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/social_buttons/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/quickstart/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/theming/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/social_buttons/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/posts/add-swagger-in-kotlin-project/</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/pages/theming/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/posts/welcome-to-nikola/</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/posts/add-swaggwer-to-the-kotlin-spring-boot-project/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
+ </url>
+ <url>
+  <loc>http://vikasontech.github.io/web-site/posts/welcome-to-nikola/</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </url>
 </urlset>

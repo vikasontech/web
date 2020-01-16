@@ -6,55 +6,63 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>https://example.com/authors/roberto-alsina.xml</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/authors/roberto-alsina.xml</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/authors/vikas-verma.xml</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/authors/vikas-verma.xml</loc>
+  <lastmod>2020-01-16T15:31:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/blog.xml</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/blog.xml</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/cat_nikola.xml</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/cat_nikola.xml</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/demo.xml</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/cat_technical.xml</loc>
+  <lastmod>2020-01-16T15:31:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/kotlin.xml</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/demo.xml</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/nikola.xml</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/kotlin.xml</loc>
+  <lastmod>2020-01-16T15:31:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/python.xml</loc>
-  <lastmod>2020-01-15T07:52:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/nikola.xml</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/categories/swagger.xml</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/python.xml</loc>
+  <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/galleries/demo/rss.xml</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/spring-boot.xml</loc>
+  <lastmod>2020-01-16T15:31:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/galleries/rss.xml</loc>
-  <lastmod>2020-01-15T08:25:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/categories/swagger.xml</loc>
+  <lastmod>2020-01-16T15:31:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/rss.xml</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/galleries/demo/rss.xml</loc>
+  <lastmod>2020-01-16T15:37:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://example.com/sitemap.xml</loc>
-  <lastmod>2020-01-15T08:38:00Z</lastmod>
+  <loc>http://vikasontech.github.io/web-site/galleries/rss.xml</loc>
+  <lastmod>2020-01-16T15:37:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>http://vikasontech.github.io/web-site/rss.xml</loc>
+  <lastmod>2020-01-16T15:37:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>http://vikasontech.github.io/web-site/sitemap.xml</loc>
+  <lastmod>2020-01-16T15:37:00Z</lastmod>
  </sitemap>
 </sitemapindex>

@@ -1,4 +1,4 @@
-Sitemap: https://example.com/sitemapindex.xml
+Sitemap: http://vikasontech.github.io/web-site/sitemapindex.xml
 
 User-Agent: *
-Host: example.com
+Host: vikasontech.github.io
