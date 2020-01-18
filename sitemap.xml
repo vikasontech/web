@@ -7,174 +7,126 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://vikasontech.github.io/web/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/2012/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/2020/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/archive.html</loc>
-  <lastmod>2020-01-18T16:08:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/authors/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/authors/roberto-alsina/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/authors/vikas-verma/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/</loc>
-  <lastmod>2020-01-16T17:47:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/categories/blog/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/categories/cat_nikola/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/cat_technical/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/categories/demo/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/kotlin/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/mongo/</loc>
-  <lastmod>2020-01-16T17:47:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/categories/nikola/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/categories/python/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/spring-boot/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/spring/</loc>
-  <lastmod>2020-01-16T17:47:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/swagger/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/testcontainer/</loc>
-  <lastmod>2020-01-16T17:47:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/galleries/</loc>
-  <lastmod>2020-01-16T14:06:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/galleries/demo/</loc>
-  <lastmod>2020-01-16T14:06:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/listings/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/listings/hello.py.html</loc>
-  <lastmod>2020-01-18T16:08:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/about-nikola/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/bootstrap-demo/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/charts/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/creating-a-theme/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/dr-nikolas-vendetta/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/extending/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/handbook/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/internals/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/listings-demo/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/path-handlers/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/quickref/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/quickstart/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/social_buttons/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/pages/theming/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/posts/add-swagger-to-the-kotlin-spring-boot-project/</loc>
-  <lastmod>2020-01-18T16:39:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/posts/add-swaggwer-to-the-kotlin-spring-boot-project/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</loc>
-  <lastmod>2020-01-18T16:20:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainr/</loc>
-  <lastmod>2020-01-16T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://vikasontech.github.io/web/posts/welcome-to-nikola/</loc>
-  <lastmod>2020-01-16T14:07:00Z</lastmod>
+  <lastmod>2020-01-18T16:45:00Z</lastmod>
  </url>
 </urlset>
