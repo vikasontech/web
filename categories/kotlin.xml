@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about kotlin)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/kotlin.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sat, 18 Jan 2020 16:20:28 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>spring+kotlin+mongo+testcontainer</title><link>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about kotlin)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/kotlin.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sat, 18 Jan 2020 16:26:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>spring+kotlin+mongo+testcontainer</title><link>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;In this project we shall see how to use &lt;a class="reference external" href="https://www.testcontainers.org/"&gt;testcontainer&lt;/a&gt; to test the repository created in &lt;a class="reference external" href="https://www.mongodb.com/"&gt;mongodb&lt;/a&gt;. As per their document Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Requirements&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Prerequisit&lt;/strong&gt;&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
 &lt;li&gt;&lt;p&gt;Docker&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -94,9 +94,9 @@ class LoanDetailServiceImplTest {
     }
 
 }&lt;/pre&gt;&lt;/noscript&gt;
-&lt;p&gt;The test case is preety normal and same we write. There is nothing special we need to do for testcontainers.&lt;/p&gt;
+&lt;p&gt;The test case is preety normal and same we write. There is nothing special we need to do for testcontainers here.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Run Test&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;cite&gt;Note: please ensure that the docker is running on your machine&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Before run local test do ensure that the docker is running on your machine.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Repository&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Create repository and link &lt;a class="reference external" href="https://github.com/vikasontech/KotlinWebFluxMongoTestContainer.git/"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description><category>kotlin</category><category>mongo</category><category>spring</category><category>testcontainer</category><guid>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</guid><pubDate>Fri, 17 Jan 2020 17:42:49 GMT</pubDate></item><item><title>Add swaggwer to the kotlin spring </title><link>https://vikasontech.github.io/web/posts/add-swaggwer-to-the-kotlin-spring-boot-project/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;In this short article we shall see how to configure swagger with spring webflux project. We create a project on spring initializer and then shall configure swagger.&lt;/p&gt;

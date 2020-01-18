@@ -14,7 +14,7 @@
 In this project we shall see how to use `testcontainer <https://www.testcontainers.org/>`_ to test the repository created in `mongodb <https://www.mongodb.com/>`_. As per their document Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
 
 
-**Requirements**
+**Prerequisit**
 
 
 1. Docker
@@ -89,14 +89,14 @@ Let's create our first test case as below
 
 
 
-The test case is preety normal and same we write. There is nothing special we need to do for testcontainers.
+The test case is preety normal and same we write. There is nothing special we need to do for testcontainers here.
 
 
 
 **Run Test**
 
 
-`Note: please ensure that the docker is running on your machine`
+Before run local test do ensure that the docker is running on your machine.
 
 
 
