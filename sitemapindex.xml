@@ -23,7 +23,7 @@
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/cat_technical.xml</loc>
-  <lastmod>2020-01-18T16:08:00Z</lastmod>
+  <lastmod>2020-01-18T16:39:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/demo.xml</loc>
@@ -31,11 +31,11 @@
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/kotlin.xml</loc>
-  <lastmod>2020-01-18T16:20:00Z</lastmod>
+  <lastmod>2020-01-18T16:39:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/mongo.xml</loc>
-  <lastmod>2020-01-18T16:20:00Z</lastmod>
+  <lastmod>2020-01-18T16:26:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/nikola.xml</loc>
@@ -47,19 +47,19 @@
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/spring-boot.xml</loc>
-  <lastmod>2020-01-18T16:08:00Z</lastmod>
+  <lastmod>2020-01-18T16:39:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/spring.xml</loc>
-  <lastmod>2020-01-18T16:20:00Z</lastmod>
+  <lastmod>2020-01-18T16:26:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/swagger.xml</loc>
-  <lastmod>2020-01-18T16:08:00Z</lastmod>
+  <lastmod>2020-01-18T16:39:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/testcontainer.xml</loc>
-  <lastmod>2020-01-18T16:20:00Z</lastmod>
+  <lastmod>2020-01-18T16:26:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/galleries/demo/rss.xml</loc>
@@ -71,10 +71,10 @@
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/rss.xml</loc>
-  <lastmod>2020-01-18T16:20:00Z</lastmod>
+  <lastmod>2020-01-18T16:39:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/sitemap.xml</loc>
-  <lastmod>2020-01-18T16:20:00Z</lastmod>
+  <lastmod>2020-01-18T16:39:00Z</lastmod>
  </sitemap>
 </sitemapindex>
