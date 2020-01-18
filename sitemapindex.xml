@@ -6,63 +6,75 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/authors/roberto-alsina.xml</loc>
+  <loc>https://vikasontech.github.io/web/authors/roberto-alsina.xml</loc>
   <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/authors/vikas-verma.xml</loc>
+  <loc>https://vikasontech.github.io/web/authors/vikas-verma.xml</loc>
   <lastmod>2020-01-16T15:31:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/blog.xml</loc>
+  <loc>https://vikasontech.github.io/web/categories/blog.xml</loc>
   <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/cat_nikola.xml</loc>
+  <loc>https://vikasontech.github.io/web/categories/cat_nikola.xml</loc>
   <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/cat_technical.xml</loc>
-  <lastmod>2020-01-16T15:31:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/categories/cat_technical.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/demo.xml</loc>
+  <loc>https://vikasontech.github.io/web/categories/demo.xml</loc>
   <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/kotlin.xml</loc>
-  <lastmod>2020-01-16T15:31:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/categories/kotlin.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/nikola.xml</loc>
+  <loc>https://vikasontech.github.io/web/categories/mongo.xml</loc>
+  <lastmod>2020-01-18T16:04:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://vikasontech.github.io/web/categories/nikola.xml</loc>
   <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/python.xml</loc>
+  <loc>https://vikasontech.github.io/web/categories/python.xml</loc>
   <lastmod>2020-01-16T14:07:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/spring-boot.xml</loc>
-  <lastmod>2020-01-16T15:31:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/categories/spring-boot.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/categories/swagger.xml</loc>
-  <lastmod>2020-01-16T15:31:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/categories/spring.xml</loc>
+  <lastmod>2020-01-18T16:04:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/galleries/demo/rss.xml</loc>
-  <lastmod>2020-01-16T15:37:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/categories/swagger.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/galleries/rss.xml</loc>
-  <lastmod>2020-01-16T15:37:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/categories/testcontainer.xml</loc>
+  <lastmod>2020-01-18T16:04:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/rss.xml</loc>
-  <lastmod>2020-01-16T15:37:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/galleries/demo/rss.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>http://vikasontech.github.io/web-site/sitemap.xml</loc>
-  <lastmod>2020-01-16T15:37:00Z</lastmod>
+  <loc>https://vikasontech.github.io/web/galleries/rss.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://vikasontech.github.io/web/rss.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://vikasontech.github.io/web/sitemap.xml</loc>
+  <lastmod>2020-01-18T16:08:00Z</lastmod>
  </sitemap>
 </sitemapindex>

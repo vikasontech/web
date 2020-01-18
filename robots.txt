@@ -1,4 +1,4 @@
-Sitemap: http://vikasontech.github.io/web-site/sitemapindex.xml
+Sitemap: https://vikasontech.github.io/web/sitemapindex.xml
 
 User-Agent: *
 Host: vikasontech.github.io
