@@ -1,5 +1,5 @@
-.. title: spring+kotlin+mongo+testcontainr
-.. slug: spring+kotlin+mongo+testcontainr
+.. title: spring+kotlin+mongo+testcontainer
+.. slug: spring+kotlin+mongo+testcontainer
 .. date: 2020-01-18 00:42:49 UTC+07:00
 .. tags: testcontainer,spring,kotlin,mongo
 .. category: 
