@@ -7,7 +7,11 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://vikasontech.github.io/web/</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T05:54:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/2019/</loc>
+  <lastmod>2020-01-19T05:54:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/2020/</loc>
@@ -15,15 +19,27 @@
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/archive.html</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T06:01:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T06:01:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/akka-http/</loc>
+  <lastmod>2020-01-19T05:55:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/akka/</loc>
+  <lastmod>2020-01-19T05:55:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/cat_technical/</loc>
   <lastmod>2020-01-18T16:45:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/docker/</loc>
+  <lastmod>2020-01-19T05:55:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/kotlin/</loc>
@@ -32,6 +48,26 @@
  <url>
   <loc>https://vikasontech.github.io/web/categories/mongo/</loc>
   <lastmod>2020-01-18T16:45:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/sbt/</loc>
+  <lastmod>2020-01-19T05:55:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/scala-example/</loc>
+  <lastmod>2020-01-19T05:55:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/scala-mongo-example-with-akka-http-and-akka-stream/</loc>
+  <lastmod>2020-01-19T06:01:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/scala-mongo-exmple-with-akka-http-and-akka-stream/</loc>
+  <lastmod>2020-01-19T05:55:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/scala/</loc>
+  <lastmod>2020-01-19T05:55:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/spring-boot/</loc>
@@ -124,6 +160,14 @@
  <url>
   <loc>https://vikasontech.github.io/web/posts/add-swagger-to-the-kotlin-spring-boot-project/</loc>
   <lastmod>2020-01-18T16:45:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/posts/poc/</loc>
+  <lastmod>2020-01-19T03:49:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/</loc>
+  <lastmod>2020-01-19T05:08:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</loc>

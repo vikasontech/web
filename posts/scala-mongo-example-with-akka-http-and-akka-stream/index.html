@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html prefix="" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="In this tutorial we shall create and CRUD web application in Scala. We will use MongoDB Scala Driver to communicate to the mongo database. It is officially supported Scala driver for MongoDB. Along with that we shall create a Rest API using akka-http module and akka-streams.">
+<meta name="viewport" content="width=device-width">
+<title>Scala Mongo example with akka-http and akka-stream | Vikas Java Blogs</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Vikas Verma">
+<meta property="og:site_name" content="Vikas Java Blogs">
+<meta property="og:title" content="Scala Mongo example with akka-http and akka-stream">
+<meta property="og:url" content="https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/">
+<meta property="og:description" content="In this tutorial we shall create and CRUD web application in Scala. We will use MongoDB Scala Driver to communicate to the mongo database. It is officially supported Scala driver for MongoDB. Along wi">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-12-23T16:22:54+07:00">
+<meta property="article:tag" content="akka">
+<meta property="article:tag" content="akka-http">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="sbt">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="scala example">
+</head>
+<body>
+    
+
+    <header id="header" class="navbar"><div class="container">
+            
+    <div class="brand">
+
+        <div class="brand-text">
+            <a href="https://vikasontech.github.io/web/" title="Vikas Java Blogs" rel="home">
+                Vikas Java Blogs
+            </a>
+        </div>
+
+        <a id="btn-toggle-nav" class="navbar-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+    </div>
+
+            
+    <nav class="navbar-collapse collapse"><ul class="nav">
+<li><a href="../../archive.html">Archive</a></li>
+                <li><a href="../../categories/">Tags</a></li>
+                <li><a href="../../rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav>
+</div>
+    </header><div class="header-padding"> </div>
+
+    
+    <div class="post-header">
+        <div class="container">
+            <div class="title">
+                Scala Mongo example with akka-http and akka-stream
+            </div>
+        </div>
+    </div>
+
+    <div class="post-meta">
+      <div class="container">
+	<div class="meta clearfix">
+	  <div class="authordate">
+	    <time class="timeago" datetime="2019-12-23T16:22:54+07:00">2019/12/23</time>
+</div>
+	  <div class="post-tags">
+	    <div class="tag">
+	      <a href="../../categories/akka/" rel="tag">akka</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/akka-http/" rel="tag">akka-http</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/docker/" rel="tag">docker</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/sbt/" rel="tag">sbt</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/scala/" rel="tag">scala</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/scala-example/" rel="tag">scala example</a>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+
+    <div id="post-main" class="main">
+        <div class="container">
+        <div>
+<div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>In this tutorial we shall create and CRUD web application in Scala. We will use  <a class="reference external" href="https://docs.mongodb.com/ecosystem/drivers/scala/">MongoDB Scala Driver</a> to communicate to the mongo database. It is officially supported Scala driver for MongoDB. Along with that we shall create a Rest API using <a class="reference external" href="https://doc.akka.io/docs/akka-http/current/index.html/">akka-http</a> module and <a class="reference external" href="https://doc.akka.io/docs/akka/current/stream/index.html/">akka-streams</a>.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites</h2>
+<ol class="arabic simple">
+<li><p>Scala version: 2.13.1</p></li>
+<li><p>Database: Mongo:3.4.23-xenial</p></li>
+</ol>
+</div>
+<div class="section" id="other-dependencies">
+<h2>Other dependencies -</h2>
+<p><script src="https://gist.github.com/00a05c5c70722529d717f5908bb1d462.js"></script></p>
+<noscript><pre>libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-actor" % "2.5.26",
+  "com.typesafe.akka" %% "akka-http" % "10.1.11",
+  "com.typesafe.akka" %% "akka-stream" % "2.5.26",
+  "ch.rasc" % "bsoncodec" % "1.0.1",
+  "org.mongodb.scala" %% "mongo-scala-driver" % "2.7.0",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11"
+
+)
+</pre></noscript>
+</div>
+<div class="section" id="about-the-service-project">
+<h2>About the service/project</h2>
+<p>Application should be able to do CRUD operations on the in mongodb document. This  application should also provide Rest apis to access and modify the data. So it is an employee management. We have employee details in a document called <cite>employee</cite>. We will create reset services to create, update and search the employee data.</p>
+</div>
+<div class="section" id="document-class">
+<h2>Document Class</h2>
+<p>Employee document contains employee name and date of birth.</p>
+<p><script src="https://gist.github.com/d176859653575565b4870087c16cad22.js"></script></p>
+<noscript><pre>@Documented
+case class Employee(_id: String, name: String, dateOfBirth: LocalDate)
+</pre></noscript>
+</div>
+<div class="section" id="mongo-configuration">
+<h2>Mongo Configuration</h2>
+<p><strong>Codec Registry</strong></p>
+<p>Mongo documents required the codec information for marshal and un-marshal the data. This codecs are already written and available here. This repository have codec implementations for most of the available types. So first create the the java codec as below -</p>
+<p><script src="https://gist.github.com/a68ec9ac38a65c38b6449347350dcec1.js"></script></p>
+<noscript><pre>  private val javaCodecs = CodecRegistries.fromCodecs(
+    new LocalDateTimeDateCodec(),
+    new BigDecimalStringCodec())
+
+  private val registry: CodecRegistry = CodecRegistries.fromProviders(classOf[Employee])
+</pre></noscript>
+<p>In the above code <cite>Employee</cite> is our mongo document class with the following details.</p>
+</div>
+<div class="section" id="id1">
+<h2>Document Class</h2>
+<p>Employee document contains employee name and date of birth.</p>
+<p><script src="https://gist.github.com/d176859653575565b4870087c16cad22.js"></script></p>
+<noscript><pre>@Documented
+case class Employee(_id: String, name: String, dateOfBirth: LocalDate)
+</pre></noscript>
+</div>
+<div class="section" id="database-details">
+<h2>Database Details</h2>
+<p><cite>MongoClientSettings</cite> is the companion object to configure the mongodb settings.</p>
+<p><script src="https://gist.github.com/ec33914a81f8f71d129cc9a16acf1e5b.js"></script></p>
+<noscript><pre>private val javaCodecs = CodecRegistries.fromCodecs(
+  new LocalDateTimeDateCodec(),
+  new BigDecimalStringCodec())
+
+val user: String = "root"
+val password: Array[Char] = "example".toCharArray
+val source: String = "admin"
+private val credential: MongoCredential = createCredential(user, source, password)
+
+val settings: MongoClientSettings = MongoClientSettings.builder()
+    .applyToClusterSettings(b =&gt; b.hosts(List(new ServerAddress("localhost")).asJava))
+    .credential(credential)
+    .codecRegistry(fromRegistries(registry, javaCodecs, DEFAULT_CODEC_REGISTRY))
+    .build()
+
+val client: MongoClient = MongoClient(settings)
+
+val database: MongoDatabase = client.getDatabase("testdatabase")</pre></noscript>
+<p>In the above snippet; A Mongo client settings object is created that contains the configuration details for the connecting mongo database.</p>
+</div>
+<div class="section" id="collection-details">
+<h2>Collection Details</h2>
+<p>Collection details can be obtained from the database representation we get the previous step</p>
+<p><script src="https://gist.github.com/aff2861b3333375066064d92d0848d43.js"></script></p>
+<noscript><pre>  val employees: MongoCollection[Employee] = database.getCollection("employee")
+</pre></noscript>
+<p>This above step required for every collection to get the data.</p>
+</div>
+<div class="section" id="json-support">
+<h2>JSON Support</h2>
+<p>We need formatter to format the date type to and from JSON format. We used Spray JSON here for this. Spray JSON providing automatic to and from JSON marshalling/un-marshalling using an in-scope <em>spray-json</em> protocol.</p>
+<p><script src="https://gist.github.com/e1b4b26a815a05e97f286d145ccce28c.js"></script></p>
+<noscript><pre>trait JsonUtils extends SprayJsonSupport with DefaultJsonProtocol {
+
+  implicit object dateFormatter extends JsonFormat[LocalDate] {
+    override def write(obj: LocalDate): JsValue = {
+      JsString(obj.toString)
+    }
+
+    override def read(json: JsValue): LocalDate = {
+      LocalDate.parse(json.toString(), DateTimeFormatter.ISO_DATE)
+    }
+  }
+  implicit val employeeJsonFormatter: RootJsonFormat[Employee] = DefaultJsonProtocol.jsonFormat3(Employee)
+  implicit val employeeRequestFormat: RootJsonFormat[EmployeeRequest] = jsonFormat2(EmployeeRequest)
+}
+</pre></noscript>
+</div>
+<div class="section" id="repository">
+<h2>Repository</h2>
+<p>Repository contains the create, update, delete and search commands for the employee document.</p>
+<p><script src="https://gist.github.com/a98e92e6ec7f07794cbfeab48fae3d22.js"></script></p>
+<noscript><pre>
+  def insertData(emp: Employee): Future[Completed] = {
+    employeeDoc.insertOne(emp).toFuture()
+  }
+
+  def findAll(): Future[Seq[Employee]] = {
+    employeeDoc.find().toFuture()
+  }
+
+  def update(emp: Employee, id: String):Future[Employee] = {
+
+    employeeDoc
+      .findOneAndUpdate(equal("_id", id),
+        setBsonValue(emp),
+        FindOneAndUpdateOptions().upsert(true)).toFuture()
+  }
+
+  def delete(id: String): Future[DeleteResult] = {
+    employeeDoc.deleteOne(equal("_id", id)).toFuture()
+  }
+
+  private def setBsonValue(emp:Employee): Bson = {
+    combine(
+      set("name", emp.name),
+      set("dateOfBirth",emp.dateOfBirth)
+    )
+  }</pre></noscript>
+</div>
+<div class="section" id="actors-to-get-the-user-data">
+<h2>Actors to get the user data</h2>
+<p>Employee actor received messages to perform different operation on the employee document. Actor shall call the actual service and then send the responds to the sender.</p>
+<p><script src="https://gist.github.com/601add3fae9b2f44a93803da840f62a2.js"></script></p>
+<noscript><pre>class EmployeeActor extends Actor with ActorLogging {
+  private val employeeService: EmployeeService = new EmployeeService()
+
+  override def receive: Receive = {
+
+    case SAVE(employee: EmployeeRequest) =&gt;
+      log.info(s"received message Save with employee $employee")
+
+      sender ! employeeService.saveEmployeeData(employee)
+
+    case SEARCH_ALL =&gt;
+      log.info(s"received message find all")
+      sender() ! employeeService.findAll
+
+    case UPDATE(emp,id) =&gt;
+      log.info(s"received message find all")
+      sender() ! employeeService.update(emp,id)
+
+    case DELETE(id)=&gt;
+      log.info(s"delete message received for the id: $id")
+      sender() ! employeeService.delete(id)
+
+    case _ =&gt;
+      log.debug("Unhandled message!")
+  }
+}</pre></noscript>
+</div>
+<div class="section" id="routing-configuration">
+<h2>Routing Configuration</h2>
+<table>
+<colgroup>
+<col style="width: 51%">
+<col style="width: 49%">
+</colgroup>
+<tbody>
+<tr>
+<td><p>GET /api/employee/create</p></td>
+<td><p>To create employee data</p></td>
+</tr>
+<tr>
+<td><p>POST /api/employee/search</p></td>
+<td><p>To search employee data</p></td>
+</tr>
+<tr>
+<td><p>PUT /api/employee/update</p></td>
+<td><p>To update employee data</p></td>
+</tr>
+<tr>
+<td><p>DELETE /api/employee/delete</p></td>
+<td><p>To delete user data</p></td>
+</tr>
+</tbody>
+</table>
+<p>The routing code should look like this-</p>
+<p><script src="https://gist.github.com/448b06903269273a7d6439726badad71.js"></script></p>
+<noscript><pre>class EmployeeRouteConfig(implicit val system: ActorSystem) extends JsonUtils {
+  val employeeActor: ActorRef = system.actorOf(Props(new EmployeeActor()))
+
+  implicit val mat: ActorMaterializer = ActorMaterializer()
+
+
+  val getRoute: Route =
+
+    PathDirectives.pathPrefix("employee") {
+      concat(
+        path("create") {
+          post {
+            entity(as[EmployeeRequest]) { employee =&gt;
+              val future = Patterns.ask(employeeActor, SAVE(employee), TimeUtils.timeoutMills)
+              Await.result(future, TimeUtils.atMostDuration)
+              RouteDirectives.complete(HttpEntity("Data saved successfully!"))
+            }
+          }
+        },
+
+        path("search") {
+          get {
+            val resultFuture = Patterns.ask(employeeActor, SEARCH_ALL, TimeUtils.timeoutMills)
+            val resultSource = Await.result(resultFuture, TimeUtils.atMostDuration).asInstanceOf[Source[Employee, NotUsed]]
+            val resultByteString = resultSource.map { it =&gt; ByteString.apply(it.toJson.toString.getBytes()) }
+            RouteDirectives.complete(HttpEntity(ContentTypes.`text/plain(UTF-8)`, resultByteString))
+          }
+        },
+
+        path("update") {
+          put {
+            parameter("id") { id =&gt;
+              entity(as[EmployeeRequest]) { employee =&gt;
+                val future = Patterns.ask(employeeActor, UPDATE(employee, id), TimeUtils.timeoutMills)
+                Await.result(future, TimeUtils.atMostDuration)
+                RouteDirectives.complete(HttpEntity("Data updated saved successfully!"))
+              }
+            }
+          }
+        },
+
+        path("delete") {
+          delete {
+            parameter("id") { id =&gt;
+              val resultFuture = Patterns.ask(employeeActor, DELETE(id), TimeUtils.timeoutMills)
+              Await.result(resultFuture, TimeUtils.atMostDuration)
+              RouteDirectives.complete(HttpEntity(s"Data updated saved successfully!"))
+            }
+          }
+        }
+      )
+    }
+}</pre></noscript>
+</div>
+<div class="section" id="web-server">
+<h2>Web Server</h2>
+<p>This class is used to create http server and bind the endpoints with the http server. You can get more information in <a class="reference external" href="http://bit.ly/scalaakkarest/">my previous blog</a>.</p>
+</div>
+<div class="section" id="run-application">
+<h2>Run Application</h2>
+<p>Start the mongodb docker container</p>
+<p><cite>docker-compose up -d</cite></p>
+<p>Compile the code using below command</p>
+<p><cite>sbt compile</cite></p>
+<p>Run the application</p>
+<p><cite>sbt run</cite></p>
+<p>Now go to terminal, and run below <a class="reference external" href="https://httpie.org//">httpie</a> commands</p>
+</div>
+<div class="section" id="create-employee-data">
+<h2>Create Employee Data</h2>
+<a class="reference external image-reference" href="../../images/20200119/create-employee-data.png"><img alt="create employee" src="../../images/20200119/create-employee-data.thumbnail.png"></a>
+</div>
+<div class="section" id="search-employee-data">
+<h2>Search Employee Data</h2>
+<a class="reference external image-reference" href="../../images/20200119/searchEmployeeData.png"><img alt="search employee" src="../../images/20200119/searchEmployeeData.thumbnail.png"></a>
+</div>
+<div class="section" id="update-employee-data">
+<h2>Update Employee Data</h2>
+<p>Check current data in mongodb</p>
+<a class="reference external image-reference" href="../../images/20200119/currentDataInMongo.png"><img alt="data in database" src="../../images/20200119/currentDataInMongo.thumbnail.png"></a>
+<p>Update the data by id</p>
+<a class="reference external image-reference" href="../../images/20200119/updateDataById.png"><img alt="update data by id" src="../../images/20200119/updateDataById.thumbnail.png"></a>
+<p>Search data after update</p>
+<a class="reference external image-reference" href="../../images/20200119/searchDataAfterUpdate.png"><img alt="search data in database" src="../../images/20200119/searchDataAfterUpdate.thumbnail.png"></a>
+</div>
+<div class="section" id="delete-employee-data">
+<h2>Delete Employee data</h2>
+<p>Search employee data</p>
+<a class="reference external image-reference" href="../../images/20200119/searchDeleteEmployeeData.png"><img alt="search data in database" src="../../images/20200119/searchDeleteEmployeeData.thumbnail.png"></a>
+<p>Delete employee data using id</p>
+<a class="reference external image-reference" href="../../images/20200119/deleteEmployeeDataById.png"><img alt="delete data in database" src="../../images/20200119/deleteEmployeeDataById.thumbnail.png"></a>
+<p>Search data after delete</p>
+<a class="reference external image-reference" href="../../images/20200119/searchDataAfterDelete.png"><img alt="search data in database" src="../../images/20200119/searchDataAfterDelete.thumbnail.png"></a>
+</div>
+<div class="section" id="github-links">
+<h2>Github links</h2>
+<p><a class="reference external" href="http://bit.ly/scala-mongo-crud/">Full code is available here</a> to to explore and fork. Feel free to do whatever you want. ;)</p>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>We have seen here how to use akka http and streams to create rest services in scala. You can get more information here -
+<a class="reference external" href="https://doc.akka.io/docs/akka-http/current/introduction.html">https://doc.akka.io/docs/akka-http/current/introduction.html</a>
+<a class="reference external" href="https://doc.akka.io/docs/akka/current/stream/index.html">https://doc.akka.io/docs/akka/current/stream/index.html</a>
+<a class="reference external" href="https://docs.mongodb.com/ecosystem/drivers/scala/">https://docs.mongodb.com/ecosystem/drivers/scala/</a></p>
+</div>
+</div>
+        
+
+        </div>
+    </div>
+
+    
+    <footer><div class="container">
+            <div class="social">
+
+
+
+                <div class="social-entry">
+                    <a href="../../rss.xml" target="_blank">
+                        <i class="fa fa-rss"></i> 
+                    </a>
+                </div>
+            </div>
+                <div class="copyright">
+                    Contents © 2020         <a href="mailto:vikason@gmail.com">Vikas Verma</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+                    
+                </div>
+           
+        </div>
+    </footer><script src="../../assets/js/all-nocdn.js" type="text/javascript"></script>
+</body>
+</html>
