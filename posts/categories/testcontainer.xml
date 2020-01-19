@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about testcontainer)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/testcontainer.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sun, 19 Jan 2020 08:01:19 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>spring+kotlin+mongo+testcontainer</title><link>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this project we shall see how to use &lt;a class="reference external" href="https://www.testcontainers.org/"&gt;testcontainer&lt;/a&gt; to test the repository created in &lt;a class="reference external" href="https://www.mongodb.com/"&gt;mongodb&lt;/a&gt;. As per their document Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Prerequisit&lt;/strong&gt;&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;&lt;p&gt;Docker&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Create sample project&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Go to the &lt;a class="reference external" href="http://start.spring.io/"&gt;spring initializer&lt;/a&gt; and create project with language as kotlin and dependencies required are &lt;cite&gt;webflux&lt;/cite&gt; &amp;amp; &lt;cite&gt;reactive mongo db&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Here we shall create a loan details application, where we will save loan details.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Dependency for testcontainer&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We need following depencies to add testconainer in the appliation
+&lt;script src="https://gist.github.com/9870bb368b01f5a7ae07148efd2276f8.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;&lt;dependency&gt;
+    &lt;groupid&gt;org.testcontainers&lt;/groupid&gt;
+    &lt;artifactid&gt;testcontainers&lt;/artifactid&gt;
+    &lt;version&gt;1.12.4&lt;/version&gt;
+&lt;/dependency&gt;&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;&lt;strong&gt;Container Configuration&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create docker compose file for the test container we shall use the same docker-compose.yml file as we are using for the application, except we shall change the port for the test docker container.
+it should look like this-&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/3d2b48ee2c50a390c36a9d57cedb5386.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;version: '3.1'
+services:
+    mongo:
+        image: mongo:4.2.0-rc2-bionic
+        ports:
+            - 1234:27017
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: example 
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;Note: here we are mapping docker container port at &lt;code class="docutils literal"&gt;1234&lt;/code&gt; some random port it can be any number that are available.&lt;/p&gt;
+&lt;p&gt;The file path should be &lt;code class="docutils literal"&gt;&lt;span class="pre"&gt;src/test/resources/docker-compose-test.yml&lt;/span&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1. Create a container class that extends docker compose container class be used as mongo container
+&lt;script src="https://gist.github.com/f4bc3ac99aa38cdfe130ff572c55f478.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;@Service
+class MongoContainer : DockerComposeContainer&lt;mongocontainer&gt;(File("src/test/resources/docker-compose-test.yml")) {
+    @PostConstruct
+    fun init() {
+        this.start()
+    }
+}
+&lt;/mongocontainer&gt;&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;The code is very simple and self explanatory, at &lt;code class="docutils literal"&gt;line:2&lt;/code&gt; we create a &lt;code class="docutils literal"&gt;DockerComposeContainer&lt;/code&gt; of type &lt;cite&gt;SELF&lt;/cite&gt; &lt;code class="docutils literal"&gt;MongoContainer&lt;/code&gt; and provide path of test docker compose file.&lt;/p&gt;
+&lt;p&gt;We created it as a singleton repository and use &lt;code class="docutils literal"&gt;@PostConstruct&lt;/code&gt; to start the container once the dependency injection is done.&lt;/p&gt;
+&lt;p&gt;That's all we need to start with testconatainer.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create basic structure of the application&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create a &lt;cite&gt;document&lt;/cite&gt; class to save in mongo
+&lt;script src="https://gist.github.com/538fe51780ebe36103dd5f395b5b561d.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;@Document
+data class LoanDetail(var _id: String,
+                      var loanAmount: BigDecimal,
+                      var loanCommencedDate: LocalDate,
+                      var interestRate: Float,
+                      var numberOfEmi: Int,
+                      var emiAmount: BigDecimal)
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;Create an &lt;cite&gt;repository&lt;/cite&gt; to access data from the DB.
+&lt;script src="https://gist.github.com/434440bacb6ae4c8b65d81024274e08f.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;@Repository
+interface LoanDetailRepo : ReactiveCrudRepository&lt;loandetail string&gt;
+&lt;/loandetail&gt;&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;Create an &lt;cite&gt;service&lt;/cite&gt; class to access the loan details.
+&lt;script src="https://gist.github.com/e0970e10dfc16f24195a8f932537a0dc.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;@Service
+class LoanDetailServiceImpl(private val loanDetailRepo:  LoanDetailRepo) : LoanDetailService {
+
+    override fun save(loanDetail: LoanDetail): Mono&lt;loandetail&gt; {
+        return loanDetailRepo.save(loanDetail)
+
+    }
+}&lt;/loandetail&gt;&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;&lt;strong&gt;Create first test case&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Let's create our first test case as below
+&lt;script src="https://gist.github.com/a9bd4b673a792f94ca426d1ad988d981.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;@RunWith(SpringRunner::class)
+@SpringBootTest
+class LoanDetailServiceImplTest {
+
+    @Autowired
+    private lateinit var loanDetailService: LoanDetailService
+
+    @Test
+    fun `save load detail service`() {
+        StepVerifier.create(loanDetailService.save(LoanDetail(_id = "1", loanAmount = BigDecimal.valueOf(100000L),
+            emiAmount = BigDecimal.valueOf(1000L),
+            interestRate = 10F,
+            loanCommencedDate = LocalDate.now(),
+            numberOfEmi = 120)))
+            .expectSubscription()
+            .expectNextCount(1)
+            .verifyComplete()
+    }
+
+}&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;The test case is preety normal and same we write. There is nothing special we need to do for testcontainers here.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Run Test&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Before run local test do ensure that the docker is running on your machine.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Repository&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Create repository and link &lt;a class="reference external" href="https://github.com/vikasontech/KotlinWebFluxMongoTestContainer.git/"&gt;here&lt;/a&gt;&lt;/p&gt;&lt;/div&gt;</description><category>kotlin</category><category>mongo</category><category>spring</category><category>testcontainer</category><guid>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</guid><pubDate>Fri, 17 Jan 2020 17:42:49 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about akka)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/akka.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sun, 19 Jan 2020 08:01:18 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Scala Mongo example with akka-http and akka-stream</title><link>https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;In this tutorial we shall create and CRUD web application in Scala. We will use  &lt;a class="reference external" href="https://docs.mongodb.com/ecosystem/drivers/scala/"&gt;MongoDB Scala Driver&lt;/a&gt; to communicate to the mongo database. It is officially supported Scala driver for MongoDB. Along with that we shall create a Rest API using &lt;a class="reference external" href="https://doc.akka.io/docs/akka-http/current/index.html/"&gt;akka-http&lt;/a&gt; module and &lt;a class="reference external" href="https://doc.akka.io/docs/akka/current/stream/index.html/"&gt;akka-streams&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="prerequisites"&gt;
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;&lt;p&gt;Scala version: 2.13.1&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Database: Mongo:3.4.23-xenial&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class="section" id="other-dependencies"&gt;
+&lt;h2&gt;Other dependencies -&lt;/h2&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/00a05c5c70722529d717f5908bb1d462.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-actor" % "2.5.26",
+  "com.typesafe.akka" %% "akka-http" % "10.1.11",
+  "com.typesafe.akka" %% "akka-stream" % "2.5.26",
+  "ch.rasc" % "bsoncodec" % "1.0.1",
+  "org.mongodb.scala" %% "mongo-scala-driver" % "2.7.0",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11"
+
+)
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="about-the-service-project"&gt;
+&lt;h2&gt;About the service/project&lt;/h2&gt;
+&lt;p&gt;Application should be able to do CRUD operations on the in mongodb document. This  application should also provide Rest apis to access and modify the data. So it is an employee management. We have employee details in a document called &lt;cite&gt;employee&lt;/cite&gt;. We will create reset services to create, update and search the employee data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="document-class"&gt;
+&lt;h2&gt;Document Class&lt;/h2&gt;
+&lt;p&gt;Employee document contains employee name and date of birth.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/d176859653575565b4870087c16cad22.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;@Documented
+case class Employee(_id: String, name: String, dateOfBirth: LocalDate)
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="mongo-configuration"&gt;
+&lt;h2&gt;Mongo Configuration&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Codec Registry&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Mongo documents required the codec information for marshal and un-marshal the data. This codecs are already written and available here. This repository have codec implementations for most of the available types. So first create the the java codec as below -&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/a68ec9ac38a65c38b6449347350dcec1.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;  private val javaCodecs = CodecRegistries.fromCodecs(
+    new LocalDateTimeDateCodec(),
+    new BigDecimalStringCodec())
+
+  private val registry: CodecRegistry = CodecRegistries.fromProviders(classOf[Employee])
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;In the above code &lt;cite&gt;Employee&lt;/cite&gt; is our mongo document class with the following details.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h2&gt;Document Class&lt;/h2&gt;
+&lt;p&gt;Employee document contains employee name and date of birth.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/d176859653575565b4870087c16cad22.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;@Documented
+case class Employee(_id: String, name: String, dateOfBirth: LocalDate)
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="database-details"&gt;
+&lt;h2&gt;Database Details&lt;/h2&gt;
+&lt;p&gt;&lt;cite&gt;MongoClientSettings&lt;/cite&gt; is the companion object to configure the mongodb settings.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/ec33914a81f8f71d129cc9a16acf1e5b.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;private val javaCodecs = CodecRegistries.fromCodecs(
+  new LocalDateTimeDateCodec(),
+  new BigDecimalStringCodec())
+
+val user: String = "root"
+val password: Array[Char] = "example".toCharArray
+val source: String = "admin"
+private val credential: MongoCredential = createCredential(user, source, password)
+
+val settings: MongoClientSettings = MongoClientSettings.builder()
+    .applyToClusterSettings(b =&amp;gt; b.hosts(List(new ServerAddress("localhost")).asJava))
+    .credential(credential)
+    .codecRegistry(fromRegistries(registry, javaCodecs, DEFAULT_CODEC_REGISTRY))
+    .build()
+
+val client: MongoClient = MongoClient(settings)
+
+val database: MongoDatabase = client.getDatabase("testdatabase")&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;In the above snippet; A Mongo client settings object is created that contains the configuration details for the connecting mongo database.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="collection-details"&gt;
+&lt;h2&gt;Collection Details&lt;/h2&gt;
+&lt;p&gt;Collection details can be obtained from the database representation we get the previous step&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/aff2861b3333375066064d92d0848d43.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;  val employees: MongoCollection[Employee] = database.getCollection("employee")
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;This above step required for every collection to get the data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="json-support"&gt;
+&lt;h2&gt;JSON Support&lt;/h2&gt;
+&lt;p&gt;We need formatter to format the date type to and from JSON format. We used Spray JSON here for this. Spray JSON providing automatic to and from JSON marshalling/un-marshalling using an in-scope &lt;em&gt;spray-json&lt;/em&gt; protocol.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/e1b4b26a815a05e97f286d145ccce28c.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;trait JsonUtils extends SprayJsonSupport with DefaultJsonProtocol {
+
+  implicit object dateFormatter extends JsonFormat[LocalDate] {
+    override def write(obj: LocalDate): JsValue = {
+      JsString(obj.toString)
+    }
+
+    override def read(json: JsValue): LocalDate = {
+      LocalDate.parse(json.toString(), DateTimeFormatter.ISO_DATE)
+    }
+  }
+  implicit val employeeJsonFormatter: RootJsonFormat[Employee] = DefaultJsonProtocol.jsonFormat3(Employee)
+  implicit val employeeRequestFormat: RootJsonFormat[EmployeeRequest] = jsonFormat2(EmployeeRequest)
+}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="repository"&gt;
+&lt;h2&gt;Repository&lt;/h2&gt;
+&lt;p&gt;Repository contains the create, update, delete and search commands for the employee document.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/a98e92e6ec7f07794cbfeab48fae3d22.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
+  def insertData(emp: Employee): Future[Completed] = {
+    employeeDoc.insertOne(emp).toFuture()
+  }
+
+  def findAll(): Future[Seq[Employee]] = {
+    employeeDoc.find().toFuture()
+  }
+
+  def update(emp: Employee, id: String):Future[Employee] = {
+
+    employeeDoc
+      .findOneAndUpdate(equal("_id", id),
+        setBsonValue(emp),
+        FindOneAndUpdateOptions().upsert(true)).toFuture()
+  }
+
+  def delete(id: String): Future[DeleteResult] = {
+    employeeDoc.deleteOne(equal("_id", id)).toFuture()
+  }
+
+  private def setBsonValue(emp:Employee): Bson = {
+    combine(
+      set("name", emp.name),
+      set("dateOfBirth",emp.dateOfBirth)
+    )
+  }&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="actors-to-get-the-user-data"&gt;
+&lt;h2&gt;Actors to get the user data&lt;/h2&gt;
+&lt;p&gt;Employee actor received messages to perform different operation on the employee document. Actor shall call the actual service and then send the responds to the sender.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/601add3fae9b2f44a93803da840f62a2.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;class EmployeeActor extends Actor with ActorLogging {
+  private val employeeService: EmployeeService = new EmployeeService()
+
+  override def receive: Receive = {
+
+    case SAVE(employee: EmployeeRequest) =&amp;gt;
+      log.info(s"received message Save with employee $employee")
+
+      sender ! employeeService.saveEmployeeData(employee)
+
+    case SEARCH_ALL =&amp;gt;
+      log.info(s"received message find all")
+      sender() ! employeeService.findAll
+
+    case UPDATE(emp,id) =&amp;gt;
+      log.info(s"received message find all")
+      sender() ! employeeService.update(emp,id)
+
+    case DELETE(id)=&amp;gt;
+      log.info(s"delete message received for the id: $id")
+      sender() ! employeeService.delete(id)
+
+    case _ =&amp;gt;
+      log.debug("Unhandled message!")
+  }
+}&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="routing-configuration"&gt;
+&lt;h2&gt;Routing Configuration&lt;/h2&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col style="width: 51%"&gt;
+&lt;col style="width: 49%"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;GET /api/employee/create&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To create employee data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;POST /api/employee/search&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To search employee data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;PUT /api/employee/update&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To update employee data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;DELETE /api/employee/delete&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To delete user data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The routing code should look like this-&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/448b06903269273a7d6439726badad71.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;class EmployeeRouteConfig(implicit val system: ActorSystem) extends JsonUtils {
+  val employeeActor: ActorRef = system.actorOf(Props(new EmployeeActor()))
+
+  implicit val mat: ActorMaterializer = ActorMaterializer()
+
+
+  val getRoute: Route =
+
+    PathDirectives.pathPrefix("employee") {
+      concat(
+        path("create") {
+          post {
+            entity(as[EmployeeRequest]) { employee =&amp;gt;
+              val future = Patterns.ask(employeeActor, SAVE(employee), TimeUtils.timeoutMills)
+              Await.result(future, TimeUtils.atMostDuration)
+              RouteDirectives.complete(HttpEntity("Data saved successfully!"))
+            }
+          }
+        },
+
+        path("search") {
+          get {
+            val resultFuture = Patterns.ask(employeeActor, SEARCH_ALL, TimeUtils.timeoutMills)
+            val resultSource = Await.result(resultFuture, TimeUtils.atMostDuration).asInstanceOf[Source[Employee, NotUsed]]
+            val resultByteString = resultSource.map { it =&amp;gt; ByteString.apply(it.toJson.toString.getBytes()) }
+            RouteDirectives.complete(HttpEntity(ContentTypes.`text/plain(UTF-8)`, resultByteString))
+          }
+        },
+
+        path("update") {
+          put {
+            parameter("id") { id =&amp;gt;
+              entity(as[EmployeeRequest]) { employee =&amp;gt;
+                val future = Patterns.ask(employeeActor, UPDATE(employee, id), TimeUtils.timeoutMills)
+                Await.result(future, TimeUtils.atMostDuration)
+                RouteDirectives.complete(HttpEntity("Data updated saved successfully!"))
+              }
+            }
+          }
+        },
+
+        path("delete") {
+          delete {
+            parameter("id") { id =&amp;gt;
+              val resultFuture = Patterns.ask(employeeActor, DELETE(id), TimeUtils.timeoutMills)
+              Await.result(resultFuture, TimeUtils.atMostDuration)
+              RouteDirectives.complete(HttpEntity(s"Data updated saved successfully!"))
+            }
+          }
+        }
+      )
+    }
+}&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="web-server"&gt;
+&lt;h2&gt;Web Server&lt;/h2&gt;
+&lt;p&gt;This class is used to create http server and bind the endpoints with the http server. You can get more information in &lt;a class="reference external" href="http://bit.ly/scalaakkarest/"&gt;my previous blog&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="run-application"&gt;
+&lt;h2&gt;Run Application&lt;/h2&gt;
+&lt;p&gt;Start the mongodb docker container&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;docker-compose up -d&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Compile the code using below command&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;sbt compile&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Run the application&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;sbt run&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Now go to terminal, and run below &lt;a class="reference external" href="https://httpie.org//"&gt;httpie&lt;/a&gt; commands&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="create-employee-data"&gt;
+&lt;h2&gt;Create Employee Data&lt;/h2&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/create-employee-data.png"&gt;&lt;img alt="create employee" src="https://vikasontech.github.io/web/images/20200119/create-employee-data.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="section" id="search-employee-data"&gt;
+&lt;h2&gt;Search Employee Data&lt;/h2&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/searchEmployeeData.png"&gt;&lt;img alt="search employee" src="https://vikasontech.github.io/web/images/20200119/searchEmployeeData.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="section" id="update-employee-data"&gt;
+&lt;h2&gt;Update Employee Data&lt;/h2&gt;
+&lt;p&gt;Check current data in mongodb&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/currentDataInMongo.png"&gt;&lt;img alt="data in database" src="https://vikasontech.github.io/web/images/20200119/currentDataInMongo.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;Update the data by id&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/updateDataById.png"&gt;&lt;img alt="update data by id" src="https://vikasontech.github.io/web/images/20200119/updateDataById.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;Search data after update&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/searchDataAfterUpdate.png"&gt;&lt;img alt="search data in database" src="https://vikasontech.github.io/web/images/20200119/searchDataAfterUpdate.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="section" id="delete-employee-data"&gt;
+&lt;h2&gt;Delete Employee data&lt;/h2&gt;
+&lt;p&gt;Search employee data&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/searchDeleteEmployeeData.png"&gt;&lt;img alt="search data in database" src="https://vikasontech.github.io/web/images/20200119/searchDeleteEmployeeData.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;Delete employee data using id&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/deleteEmployeeDataById.png"&gt;&lt;img alt="delete data in database" src="https://vikasontech.github.io/web/images/20200119/deleteEmployeeDataById.thumbnail.png"&gt;&lt;/a&gt;
+&lt;p&gt;Search data after delete&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20200119/searchDataAfterDelete.png"&gt;&lt;img alt="search data in database" src="https://vikasontech.github.io/web/images/20200119/searchDataAfterDelete.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="section" id="github-links"&gt;
+&lt;h2&gt;Github links&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://bit.ly/scala-mongo-crud/"&gt;Full code is available here&lt;/a&gt; to to explore and fork. Feel free to do whatever you want. ;)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;We have seen here how to use akka http and streams to create rest services in scala. You can get more information here -
+&lt;a class="reference external" href="https://doc.akka.io/docs/akka-http/current/introduction.html"&gt;https://doc.akka.io/docs/akka-http/current/introduction.html&lt;/a&gt;
+&lt;a class="reference external" href="https://doc.akka.io/docs/akka/current/stream/index.html"&gt;https://doc.akka.io/docs/akka/current/stream/index.html&lt;/a&gt;
+&lt;a class="reference external" href="https://docs.mongodb.com/ecosystem/drivers/scala/"&gt;https://docs.mongodb.com/ecosystem/drivers/scala/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description><category>akka</category><category>akka-http</category><category>docker</category><category>sbt</category><category>scala</category><category>scala example</category><guid>https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/</guid><pubDate>Mon, 23 Dec 2019 09:22:54 GMT</pubDate></item><item><title>Scala Rest API with akka-http</title><link>https://vikasontech.github.io/web/posts/scala-rest-api-with-akka-http/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;In this tutorial we shall explore how we can use akka-http to create service with scala. Here we create CRUD service with akka actor and try to see how it work.&lt;/p&gt;
+&lt;div class="section" id="versions"&gt;
+&lt;h3&gt;Versions&lt;/h3&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Scala version: 2.13.1&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SBT version: 1.3.4&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="other-dependencies"&gt;
+&lt;h3&gt;Other dependencies -&lt;/h3&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/c6216874027f683731f5d61e2e65de25.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;scalaVersion := "2.13.1"
+
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-actor" % "2.5.26",
+  "com.typesafe.akka" %% "akka-http" % "10.1.11",
+  "com.typesafe.akka" %% "akka-stream" % "2.5.26",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11",
+)&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="about-the-service-project"&gt;
+&lt;h3&gt;About the service/project&lt;/h3&gt;
+&lt;p&gt;We’ll create two actors that communicate with each other to get the user data and user activity data.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20191210/aboutService.png"&gt;&lt;img alt="output of the application" src="https://vikasontech.github.io/web/images/20191210/aboutService.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="section" id="data-classes"&gt;
+&lt;h3&gt;Data Classes&lt;/h3&gt;
+&lt;p&gt;We need two data classes that keeps the user data and user activity data.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/dc9497796aa9855cf8fe089a810894e8.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;// holds user data
+case class UserData(data: String)
+
+// holds user activity data
+case class UserActitity(activity: String)
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="repository"&gt;
+&lt;h3&gt;Repository&lt;/h3&gt;
+&lt;p&gt;Repositories are used to fetch the data from the actual source of data. The actual source can be anything like another service or some database. We created &lt;cite&gt;UserActivityRepository&lt;/cite&gt; that have only one method &lt;cite&gt;queryHistoricalActivities&lt;/cite&gt; to fetch the user activity by &lt;cite&gt;userId&lt;/cite&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/fb883120dd64646f88f04561b9c7e10b.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;import scala.concurrent.Future
+
+trait UserActivityRepository {
+  def queryHistoricalActivities(userId: String):
+  Future[List[UserActivity]]
+}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="actors-to-get-user-data"&gt;
+&lt;h3&gt;Actors to get user data&lt;/h3&gt;
+&lt;p&gt;We need two actor classes for &lt;cite&gt;UserDataActor&lt;/cite&gt; and &lt;cite&gt;UserActivityActor&lt;/cite&gt;. &lt;cite&gt;UserDataActor&lt;/cite&gt; received 4 types of methods &lt;cite&gt;Get&lt;/cite&gt;, &lt;cite&gt;Post&lt;/cite&gt;,`Put` and &lt;cite&gt;Delete&lt;/cite&gt; to retrieve, create, update and delete the user data respectively.  Once a message received, User data will be sent to the sender asynchronously.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/98e637ea820c6e696a67243fb84d5d14.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;object UserDataActor {
+  case object Get
+  case object Post
+  case object Put
+  case object Delete
+}
+
+//Backend Service
+class UserDataActor extends Actor {
+
+  import UserDataActor._
+
+  override def receive: Receive = {
+
+    case Get =&amp;gt;
+      sender() ! UserData("data Searched")
+    case Post =&amp;gt;
+      sender() ! UserData("data created!")
+    case Put =&amp;gt;
+      sender () ! UserData("data updated!")
+    case Delete =&amp;gt;
+      sender () ! UserData("data deleted!")
+  }
+}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;&lt;cite&gt;UserActivityActor&lt;/cite&gt; retrieve the user active once it receives the message &lt;cite&gt;Get&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/50758577160dddd78cd34261e6c08723.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;object UserActivityActor {
+  case object Get
+}
+
+class UserActivityActor(val userId: String,
+                        implicit val repository: UserActivityRepository)
+  extends Actor {
+
+  implicit val ec: ExecutionContextExecutor = context.dispatcher
+
+
+  override def receive: Receive = {
+    case Get =&amp;gt;
+      repository.queryHistoricalActivities(userId) pipeTo sender
+  }
+}&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="routing-configuration"&gt;
+&lt;h3&gt;Routing Configuration&lt;/h3&gt;
+&lt;p&gt;Now, we need to create routing details, to access the user details from rest endpoints. We needs following endpoints&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col style="width: 32%"&gt;
+&lt;col style="width: 6%"&gt;
+&lt;col style="width: 62%"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;GET /api/users/activity&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;Retrieve user and its activity details.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;POST /api/user&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To create user data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;PUT /api/user&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To update user data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;DELETE /api/user&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To delete user data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Routing code looks like below -&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/5c464a8b0b5e278107267ba0d4d38308.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
+
+class RouteConfig(implicit val userDataActorRef: ActorRef,
+                  implicit val system: ActorSystem) {
+  val timeoutMills: Long = 2 * 1000
+
+
+  val getRoute: Route =
+
+    PathDirectives.pathPrefix("user"){
+      path("activity") {
+        get {
+
+          val userData = findData(UserDataActor.Get)
+
+          val userActivityActorRef: ActorRef =
+            system.actorOf(Props(new UserActivityActor(userData.data, new UserActivityRepositoryImpl())))
+
+          val activity: UserActivity = findUserActivityData(userActivityActorRef)
+          RouteDirectives.complete(HttpEntity(activity.toString))
+        }
+      }
+    }
+
+  private def findUserActivityData(userActivityActorRef: ActorRef) = {
+    val resultFuture = Patterns.ask(userActivityActorRef, UserActivityActor.Get, timeoutMills)
+    val result: List[UserActivity] = Await.result(resultFuture, Duration.create(2, TimeUnit.SECONDS)).asInstanceOf[List[UserActivity]]
+    val activity: UserActivity = result.head
+    activity
+  }
+
+  val postRoute: Route = path("user") {
+    post {
+      //TODO: DO SOME OPERATION TO SAVE USER DATA
+      executeActorAndSearchData(UserDataActor.Post)
+    }
+  }
+
+  val deleteRoute: Route = path("user") {
+    delete {
+      //TODO: DO SOME OPERATION TO DELETE USER DATA
+      executeActorAndSearchData(UserDataActor.Delete)
+    }
+  }
+
+  val putRoute: Route = path("user") {
+    put {
+      //TODO: DO SOME OPERATION TO UPDATE USER DATA
+      executeActorAndSearchData(UserDataActor.Put)
+    }
+  }
+
+  val executeActorAndSearchData: Any =&amp;gt; StandardRoute = (message: Any) =&amp;gt; {
+    val result: UserData = findData(message)
+    RouteDirectives.complete(HttpEntity(result.data))
+  }
+
+  private def findData(message: Any) = {
+    val resultFuture = Patterns.ask(userDataActorRef, message, timeoutMillis = timeoutMills)
+    val result: UserData = Await.result(resultFuture, Duration.create(2, TimeUnit.SECONDS)).asInstanceOf[UserData]
+    result
+  }
+}&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;We have two &lt;cite&gt;implicit&lt;/cite&gt; parameters in the routing config &lt;cite&gt;implicit val userDataActorRef: ActorRef&lt;/cite&gt; and &lt;cite&gt;implicit val system: ActorSystem&lt;/cite&gt;. &lt;cite&gt;userDataActorRef&lt;/cite&gt; is used to get the user data. Since user details is required to register &lt;cite&gt;UserActivityActor&lt;/cite&gt; we use actor system and implicit parameter to register &lt;cite&gt;UserActivityActor&lt;/cite&gt; when we have user information available.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="web-server"&gt;
+&lt;h3&gt;Web Server&lt;/h3&gt;
+&lt;p&gt;This class is used to create http server and bind the endpoints with the http server.
+&lt;script src="https://gist.github.com/bbb78c7509bda0d3597eb3a8b135a954.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
+package org
+
+import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.directives.PathDirectives.pathPrefix
+import akka.stream.ActorMaterializer
+import org.user.actor.UserDataActor
+import org.user.repositories.UserActivityRepositoryImpl
+
+import scala.concurrent.ExecutionContextExecutor
+import scala.io.StdIn
+
+object WebServer extends App {
+    implicit val system: ActorSystem = ActorSystem("web-app")
+    private implicit val dispatcher: ExecutionContextExecutor = system.dispatcher
+    private implicit val materialize: ActorMaterializer = ActorMaterializer()
+
+    implicit val userActivityRepo = new UserActivityRepositoryImpl()
+    implicit val userDataActorRef: ActorRef = system.actorOf(Props(new UserDataActor()))
+
+    private val routeConfig = new RouteConfig()
+    val routes = {
+        pathPrefix("api") {
+            concat(
+                    routeConfig.getRoute,
+                    routeConfig.postRoute,
+                    routeConfig.deleteRoute,
+                    routeConfig.putRoute
+            )
+        }
+    }
+    val serverFuture = Http().bindAndHandle(routes, "localhost", 8080)
+
+    println("Server started ...")
+    StdIn.readLine()
+    serverFuture
+            .flatMap(_.unbind())
+            .onComplete(_ =&amp;gt; system.terminate())
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;div class="section" id="run-application"&gt;
+&lt;h4&gt;Run Application&lt;/h4&gt;
+&lt;p&gt;Compile the code using below command&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;sbt compile&lt;/cite&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="run-the-application"&gt;
+&lt;h4&gt;Run the application&lt;/h4&gt;
+&lt;p&gt;&lt;cite&gt;sbt run&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Now go to terminal, and run below httpie scripts&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20191210/output.png"&gt;&lt;img alt="output of the application" src="https://vikasontech.github.io/web/images/20191210/output.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="github-links"&gt;
+&lt;h3&gt;Github links&lt;/h3&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://bit.ly/2rzPmYH/"&gt;Full code is available here&lt;/a&gt; to to explore and fork. Feel free to do whatever you want. ;)
+Conclusion
+We have seen here it’s easy to create rest services with akka and scala. You can get more information at
+&lt;a class="reference external" href="https://doc.akka.io/docs/akka-http/current/introduction.html/"&gt;akka-http official document&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>akka</category><category>akka-http</category><category>rest service</category><category>sbt</category><category>scala</category><category>scala example</category><category>web service</category><guid>https://vikasontech.github.io/web/posts/scala-rest-api-with-akka-http/</guid><pubDate>Tue, 10 Dec 2019 07:15:17 GMT</pubDate></item></channel></rss>
