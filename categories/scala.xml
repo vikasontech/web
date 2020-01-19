@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about scala)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/scala.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sun, 19 Jan 2020 06:03:15 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Scala Mongo example with akka-http and akka-stream</title><link>https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;div class="section" id="introduction"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about scala)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/scala.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sun, 19 Jan 2020 08:08:35 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Scala Mongo example with akka-http and akka-stream</title><link>https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;div class="section" id="introduction"&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;In this tutorial we shall create and CRUD web application in Scala. We will use  &lt;a class="reference external" href="https://docs.mongodb.com/ecosystem/drivers/scala/"&gt;MongoDB Scala Driver&lt;/a&gt; to communicate to the mongo database. It is officially supported Scala driver for MongoDB. Along with that we shall create a Rest API using &lt;a class="reference external" href="https://doc.akka.io/docs/akka-http/current/index.html/"&gt;akka-http&lt;/a&gt; module and &lt;a class="reference external" href="https://doc.akka.io/docs/akka/current/stream/index.html/"&gt;akka-streams&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -300,4 +300,261 @@ val database: MongoDatabase = client.getDatabase("testdatabase")&lt;/pre&gt;&lt;
 &lt;a class="reference external" href="https://doc.akka.io/docs/akka-http/current/introduction.html"&gt;https://doc.akka.io/docs/akka-http/current/introduction.html&lt;/a&gt;
 &lt;a class="reference external" href="https://doc.akka.io/docs/akka/current/stream/index.html"&gt;https://doc.akka.io/docs/akka/current/stream/index.html&lt;/a&gt;
 &lt;a class="reference external" href="https://docs.mongodb.com/ecosystem/drivers/scala/"&gt;https://docs.mongodb.com/ecosystem/drivers/scala/&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;&lt;/div&gt;</description><category>akka</category><category>akka-http</category><category>docker</category><category>sbt</category><category>scala</category><category>scala example</category><guid>https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/</guid><pubDate>Mon, 23 Dec 2019 09:22:54 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;&lt;/div&gt;</description><category>akka</category><category>akka-http</category><category>docker</category><category>sbt</category><category>scala</category><category>scala example</category><guid>https://vikasontech.github.io/web/posts/scala-mongo-example-with-akka-http-and-akka-stream/</guid><pubDate>Mon, 23 Dec 2019 09:22:54 GMT</pubDate></item><item><title>Scala Rest API with akka-http</title><link>https://vikasontech.github.io/web/posts/scala-rest-api-with-akka-http/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;In this tutorial we shall explore how we can use akka-http to create service with scala. Here we create CRUD service with akka actor and try to see how it work.&lt;/p&gt;
+&lt;div class="section" id="versions"&gt;
+&lt;h3&gt;Versions&lt;/h3&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Scala version: 2.13.1&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;SBT version: 1.3.4&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="other-dependencies"&gt;
+&lt;h3&gt;Other dependencies -&lt;/h3&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/c6216874027f683731f5d61e2e65de25.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;scalaVersion := "2.13.1"
+
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-actor" % "2.5.26",
+  "com.typesafe.akka" %% "akka-http" % "10.1.11",
+  "com.typesafe.akka" %% "akka-stream" % "2.5.26",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.11",
+)&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="about-the-service-project"&gt;
+&lt;h3&gt;About the service/project&lt;/h3&gt;
+&lt;p&gt;We’ll create two actors that communicate with each other to get the user data and user activity data.&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20191210/aboutService.png"&gt;&lt;img alt="output of the application" src="https://vikasontech.github.io/web/images/20191210/aboutService.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="section" id="data-classes"&gt;
+&lt;h3&gt;Data Classes&lt;/h3&gt;
+&lt;p&gt;We need two data classes that keeps the user data and user activity data.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/dc9497796aa9855cf8fe089a810894e8.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;// holds user data
+case class UserData(data: String)
+
+// holds user activity data
+case class UserActitity(activity: String)
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="repository"&gt;
+&lt;h3&gt;Repository&lt;/h3&gt;
+&lt;p&gt;Repositories are used to fetch the data from the actual source of data. The actual source can be anything like another service or some database. We created &lt;cite&gt;UserActivityRepository&lt;/cite&gt; that have only one method &lt;cite&gt;queryHistoricalActivities&lt;/cite&gt; to fetch the user activity by &lt;cite&gt;userId&lt;/cite&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/fb883120dd64646f88f04561b9c7e10b.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;import scala.concurrent.Future
+
+trait UserActivityRepository {
+  def queryHistoricalActivities(userId: String):
+  Future[List[UserActivity]]
+}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="actors-to-get-user-data"&gt;
+&lt;h3&gt;Actors to get user data&lt;/h3&gt;
+&lt;p&gt;We need two actor classes for &lt;cite&gt;UserDataActor&lt;/cite&gt; and &lt;cite&gt;UserActivityActor&lt;/cite&gt;. &lt;cite&gt;UserDataActor&lt;/cite&gt; received 4 types of methods &lt;cite&gt;Get&lt;/cite&gt;, &lt;cite&gt;Post&lt;/cite&gt;,`Put` and &lt;cite&gt;Delete&lt;/cite&gt; to retrieve, create, update and delete the user data respectively.  Once a message received, User data will be sent to the sender asynchronously.&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/98e637ea820c6e696a67243fb84d5d14.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;object UserDataActor {
+  case object Get
+  case object Post
+  case object Put
+  case object Delete
+}
+
+//Backend Service
+class UserDataActor extends Actor {
+
+  import UserDataActor._
+
+  override def receive: Receive = {
+
+    case Get =&amp;gt;
+      sender() ! UserData("data Searched")
+    case Post =&amp;gt;
+      sender() ! UserData("data created!")
+    case Put =&amp;gt;
+      sender () ! UserData("data updated!")
+    case Delete =&amp;gt;
+      sender () ! UserData("data deleted!")
+  }
+}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;&lt;cite&gt;UserActivityActor&lt;/cite&gt; retrieve the user active once it receives the message &lt;cite&gt;Get&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/50758577160dddd78cd34261e6c08723.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;object UserActivityActor {
+  case object Get
+}
+
+class UserActivityActor(val userId: String,
+                        implicit val repository: UserActivityRepository)
+  extends Actor {
+
+  implicit val ec: ExecutionContextExecutor = context.dispatcher
+
+
+  override def receive: Receive = {
+    case Get =&amp;gt;
+      repository.queryHistoricalActivities(userId) pipeTo sender
+  }
+}&lt;/pre&gt;&lt;/noscript&gt;
+&lt;/div&gt;
+&lt;div class="section" id="routing-configuration"&gt;
+&lt;h3&gt;Routing Configuration&lt;/h3&gt;
+&lt;p&gt;Now, we need to create routing details, to access the user details from rest endpoints. We needs following endpoints&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col style="width: 32%"&gt;
+&lt;col style="width: 6%"&gt;
+&lt;col style="width: 62%"&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;GET /api/users/activity&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;Retrieve user and its activity details.&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;POST /api/user&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To create user data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;PUT /api/user&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To update user data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;strong&gt;DELETE /api/user&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;=&amp;gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td&gt;&lt;p&gt;To delete user data&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Routing code looks like below -&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/5c464a8b0b5e278107267ba0d4d38308.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
+
+class RouteConfig(implicit val userDataActorRef: ActorRef,
+                  implicit val system: ActorSystem) {
+  val timeoutMills: Long = 2 * 1000
+
+
+  val getRoute: Route =
+
+    PathDirectives.pathPrefix("user"){
+      path("activity") {
+        get {
+
+          val userData = findData(UserDataActor.Get)
+
+          val userActivityActorRef: ActorRef =
+            system.actorOf(Props(new UserActivityActor(userData.data, new UserActivityRepositoryImpl())))
+
+          val activity: UserActivity = findUserActivityData(userActivityActorRef)
+          RouteDirectives.complete(HttpEntity(activity.toString))
+        }
+      }
+    }
+
+  private def findUserActivityData(userActivityActorRef: ActorRef) = {
+    val resultFuture = Patterns.ask(userActivityActorRef, UserActivityActor.Get, timeoutMills)
+    val result: List[UserActivity] = Await.result(resultFuture, Duration.create(2, TimeUnit.SECONDS)).asInstanceOf[List[UserActivity]]
+    val activity: UserActivity = result.head
+    activity
+  }
+
+  val postRoute: Route = path("user") {
+    post {
+      //TODO: DO SOME OPERATION TO SAVE USER DATA
+      executeActorAndSearchData(UserDataActor.Post)
+    }
+  }
+
+  val deleteRoute: Route = path("user") {
+    delete {
+      //TODO: DO SOME OPERATION TO DELETE USER DATA
+      executeActorAndSearchData(UserDataActor.Delete)
+    }
+  }
+
+  val putRoute: Route = path("user") {
+    put {
+      //TODO: DO SOME OPERATION TO UPDATE USER DATA
+      executeActorAndSearchData(UserDataActor.Put)
+    }
+  }
+
+  val executeActorAndSearchData: Any =&amp;gt; StandardRoute = (message: Any) =&amp;gt; {
+    val result: UserData = findData(message)
+    RouteDirectives.complete(HttpEntity(result.data))
+  }
+
+  private def findData(message: Any) = {
+    val resultFuture = Patterns.ask(userDataActorRef, message, timeoutMillis = timeoutMills)
+    val result: UserData = Await.result(resultFuture, Duration.create(2, TimeUnit.SECONDS)).asInstanceOf[UserData]
+    result
+  }
+}&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;We have two &lt;cite&gt;implicit&lt;/cite&gt; parameters in the routing config &lt;cite&gt;implicit val userDataActorRef: ActorRef&lt;/cite&gt; and &lt;cite&gt;implicit val system: ActorSystem&lt;/cite&gt;. &lt;cite&gt;userDataActorRef&lt;/cite&gt; is used to get the user data. Since user details is required to register &lt;cite&gt;UserActivityActor&lt;/cite&gt; we use actor system and implicit parameter to register &lt;cite&gt;UserActivityActor&lt;/cite&gt; when we have user information available.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="web-server"&gt;
+&lt;h3&gt;Web Server&lt;/h3&gt;
+&lt;p&gt;This class is used to create http server and bind the endpoints with the http server.
+&lt;script src="https://gist.github.com/bbb78c7509bda0d3597eb3a8b135a954.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
+package org
+
+import akka.actor.{ActorRef, ActorSystem, Props}
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.directives.PathDirectives.pathPrefix
+import akka.stream.ActorMaterializer
+import org.user.actor.UserDataActor
+import org.user.repositories.UserActivityRepositoryImpl
+
+import scala.concurrent.ExecutionContextExecutor
+import scala.io.StdIn
+
+object WebServer extends App {
+    implicit val system: ActorSystem = ActorSystem("web-app")
+    private implicit val dispatcher: ExecutionContextExecutor = system.dispatcher
+    private implicit val materialize: ActorMaterializer = ActorMaterializer()
+
+    implicit val userActivityRepo = new UserActivityRepositoryImpl()
+    implicit val userDataActorRef: ActorRef = system.actorOf(Props(new UserDataActor()))
+
+    private val routeConfig = new RouteConfig()
+    val routes = {
+        pathPrefix("api") {
+            concat(
+                    routeConfig.getRoute,
+                    routeConfig.postRoute,
+                    routeConfig.deleteRoute,
+                    routeConfig.putRoute
+            )
+        }
+    }
+    val serverFuture = Http().bindAndHandle(routes, "localhost", 8080)
+
+    println("Server started ...")
+    StdIn.readLine()
+    serverFuture
+            .flatMap(_.unbind())
+            .onComplete(_ =&amp;gt; system.terminate())
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;div class="section" id="run-application"&gt;
+&lt;h4&gt;Run Application&lt;/h4&gt;
+&lt;p&gt;Compile the code using below command&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;sbt compile&lt;/cite&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="run-the-application"&gt;
+&lt;h4&gt;Run the application&lt;/h4&gt;
+&lt;p&gt;&lt;cite&gt;sbt run&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;Now go to terminal, and run below httpie scripts&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20191210/output.png"&gt;&lt;img alt="output of the application" src="https://vikasontech.github.io/web/images/20191210/output.thumbnail.png"&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="github-links"&gt;
+&lt;h3&gt;Github links&lt;/h3&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://bit.ly/2rzPmYH/"&gt;Full code is available here&lt;/a&gt; to to explore and fork. Feel free to do whatever you want. ;)
+Conclusion
+We have seen here it’s easy to create rest services with akka and scala. You can get more information at
+&lt;a class="reference external" href="https://doc.akka.io/docs/akka-http/current/introduction.html/"&gt;akka-http official document&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description><category>akka</category><category>akka-http</category><category>rest service</category><category>sbt</category><category>scala</category><category>scala example</category><category>web service</category><guid>https://vikasontech.github.io/web/posts/scala-rest-api-with-akka-http/</guid><pubDate>Tue, 10 Dec 2019 07:15:17 GMT</pubDate></item></channel></rss>

@@ -7,78 +7,78 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/akka-http.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/akka.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/cat_technical.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/docker.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/kotlin.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/mongo.xml</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://vikasontech.github.io/web/categories/rest-service.xml</loc>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/sbt.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/scala-example.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://vikasontech.github.io/web/categories/scala-mongo-example-with-akka-http-and-akka-stream.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://vikasontech.github.io/web/categories/scala-mongo-exmple-with-akka-http-and-akka-stream.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/scala.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/spring-boot.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/spring.xml</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/swagger.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/testcontainer.xml</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://vikasontech.github.io/web/categories/web-service.xml</loc>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/galleries/demo/rss.xml</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/galleries/rss.xml</loc>
-  <lastmod>2020-01-18T16:45:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/rss.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/sitemap.xml</loc>
-  <lastmod>2020-01-19T06:01:00Z</lastmod>
+  <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
 </sitemapindex>
