@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs</title><link>https://vikasontech.github.io/web/</link><description>Sample java notes</description><atom:link href="https://vikasontech.github.io/web/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sun, 19 Jan 2020 08:08:36 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>spring+kotlin+mongo+testcontainer</title><link>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs</title><link>https://vikasontech.github.io/web/</link><description>Sample java notes</description><atom:link href="https://vikasontech.github.io/web/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sat, 07 Mar 2020 12:19:22 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>spring+kotlin+mongo+testcontainer</title><link>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;In this project we shall see how to use &lt;a class="reference external" href="https://www.testcontainers.org/"&gt;testcontainer&lt;/a&gt; to test the repository created in &lt;a class="reference external" href="https://www.mongodb.com/"&gt;mongodb&lt;/a&gt;. As per their document Testcontainers is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Prerequisit&lt;/strong&gt;&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
@@ -743,4 +743,151 @@ Conclusion
 We have seen here it’s easy to create rest services with akka and scala. You can get more information at
 &lt;a class="reference external" href="https://doc.akka.io/docs/akka-http/current/introduction.html/"&gt;akka-http official document&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description><category>akka</category><category>akka-http</category><category>rest service</category><category>sbt</category><category>scala</category><category>scala example</category><category>web service</category><guid>https://vikasontech.github.io/web/posts/scala-rest-api-with-akka-http/</guid><pubDate>Tue, 10 Dec 2019 07:15:17 GMT</pubDate></item></channel></rss>
+&lt;/div&gt;</description><category>akka</category><category>akka-http</category><category>rest service</category><category>sbt</category><category>scala</category><category>scala example</category><category>web service</category><guid>https://vikasontech.github.io/web/posts/scala-rest-api-with-akka-http/</guid><pubDate>Tue, 10 Dec 2019 07:15:17 GMT</pubDate></item><item><title>Secure spring boot application with keycloak</title><link>https://vikasontech.github.io/web/posts/secure-spring-boot-application-with-keycloak/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;In last blog post of this series we saw how we can configure keycloak for our application.
+Now in this tutorial we
+will see how we can use keycloak with spring boot.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Prerequisite&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Docker&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Keycloak&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Version&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Spring Boo: 1.5.17.RELEASE&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Java: 1.8&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Keycloak: 4.0.5-Final&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="section" id="create-sample-spring-boot-application"&gt;
+&lt;h2&gt;&lt;strong&gt;Create sample spring boot application&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Dependencies&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Spring-boot-starter-web&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Keycloak-spring-boot-starter&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Create rest controller class&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/70017889724bed1e3350b38a40d255ad.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
+@RestController
+class SecuredResoureces {
+
+	@Autowired
+	@GetMapping("/hello/admin")
+	public String helloAdmin() {
+		return "hello admin!\n";
+	}
+
+	@GetMapping("/hello/user")
+	public String helloUser() {
+		return "hello user!\n";
+	}
+}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;&lt;strong&gt;Secure App with keycloak&lt;/strong&gt;
+Add maven dependency for keycloak and spring security -&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;spring-boot-starter-security&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;keycloak-spring-boot-starter&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Configure keycloak server url and realms details in application.properties file&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/4cd59c38757f8f6df9eff7bdf4ff16e4.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;server.port=8081
+
+keycloak.realm = backend-service
+keycloak.bearer-only = true
+keycloak.auth-server-url = http://localhost:9001/auth
+keycloak.ssl-required = external
+keycloak.resource = backend-application
+keycloak.use-resource-role-mappings = true
+keycloak.principal-attribute = preferred_username
+
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;&lt;strong&gt;Configure keycloak security settings in the application&lt;/strong&gt;
+Add the blow class to configure the keycloak&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/82b136433b67a825a323e10b08c82694.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
+@Configuration
+@EnableWebSecurity
+class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+
+    @Bean
+    public GrantedAuthoritiesMapper grantedAuthoritiesMapper() {
+        SimpleAuthorityMapper mapper = new SimpleAuthorityMapper();
+        mapper.setConvertToUpperCase(true);
+        return mapper;
+    }
+
+    @Override
+    protected KeycloakAuthenticationProvider keycloakAuthenticationProvider() {
+        final KeycloakAuthenticationProvider provider = super.keycloakAuthenticationProvider();
+        provider.setGrantedAuthoritiesMapper(grantedAuthoritiesMapper());
+        return provider;
+    }
+
+    @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(keycloakAuthenticationProvider());
+    }
+
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new NullAuthenticatedSessionStrategy();
+    }
+
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        super.configure(http);
+        http
+                .authorizeRequests()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/user/*").hasRole("USER")
+                .anyRequest().permitAll();
+    }
+
+    @Bean
+    KeycloakConfigResolver keycloakConfigResolver() {
+        return new KeycloakSpringBootConfigResolver();
+    }
+
+    @Bean
+    public FilterRegistrationBean keycloakAuthenticationProcessingFilterRegistrationBean(
+            final KeycloakAuthenticationProcessingFilter filter) {
+        final FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
+        registrationBean.setEnabled(false);
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean keycloakPreAuthActionsFilterRegistrationBean(
+            final KeycloakPreAuthActionsFilter filter) {
+        final FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
+        registrationBean.setEnabled(false);
+        return registrationBean;
+    }
+}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;&lt;cite&gt;KeycloakSecurityConfigurer.class&lt;/cite&gt; extends &lt;cite&gt;KeycloakWebSecurityConfigurerAdapter.class&lt;/cite&gt; that provide convenient base class for creating a &lt;cite&gt;WebSecurityConfigurer&lt;/cite&gt; instance secured by Keycloak.&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;GrantedAuthoritiesMapper&lt;/cite&gt; is mapping interface which use to convert case of the role used in the keycloak from lower case to uppercase.&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;KeycloakAuthenticationProvider&lt;/cite&gt; perform authentication process.&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;NullAuthenticatedSessionStrategy&lt;/cite&gt; since we are using rest full service so we can provide null authenticated session strategy.&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;KeycloakConfigResolver&lt;/cite&gt; use to tell keycloak to use spring boot configuration. Instead
+use the configuration from the spring boot configuration resolver.&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;keycloakAuthenticationProcessingFilterRegistrationBean&lt;/cite&gt;, &lt;cite&gt;keycloakPreAuthActionsFilterRegistrationBean&lt;/cite&gt; are used avoid re-registration of the filter.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="running-application"&gt;
+&lt;h2&gt;&lt;strong&gt;Running application&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;start the application using&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;mvn spring-boot:run&lt;/cite&gt;&lt;/p&gt;
+&lt;p&gt;&lt;cite&gt;Call the admin api without security token&lt;/cite&gt;&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20181130/img1.png"&gt;&lt;img alt="alternate text" src="https://vikasontech.github.io/web/images/20181130/img1.thumbnail.png" style="width: 600.0px; height: 300.0px;"&gt;&lt;/a&gt;
+&lt;p&gt;&lt;cite&gt;Get access token for admin role&lt;/cite&gt;&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20181130/img2.png"&gt;&lt;img alt="alternate text" src="https://vikasontech.github.io/web/images/20181130/img2.thumbnail.png" style="width: 600.0px; height: 300.0px;"&gt;&lt;/a&gt;
+&lt;p&gt;&lt;cite&gt;Access admin api with access token&lt;/cite&gt;&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20181130/img3.png"&gt;&lt;img alt="alternate text" src="https://vikasontech.github.io/web/images/20181130/img3.thumbnail.png" style="width: 600.0px; height: 300.0px;"&gt;&lt;/a&gt;
+&lt;p&gt;&lt;cite&gt;Access user api with access token will give error because user role required for access user service.&lt;/cite&gt;&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20181130/img4.png"&gt;&lt;img alt="alternate text" src="https://vikasontech.github.io/web/images/20181130/img4.thumbnail.png" style="width: 600.0px; height: 300.0px;"&gt;&lt;/a&gt;
+&lt;p&gt;&lt;cite&gt;Get access token for user role&lt;/cite&gt;&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20181130/img5.png"&gt;&lt;img alt="alternate text" src="https://vikasontech.github.io/web/images/20181130/img5.thumbnail.png" style="width: 600.0px; height: 300.0px;"&gt;&lt;/a&gt;
+&lt;p&gt;&lt;cite&gt;Access user service&lt;/cite&gt;&lt;/p&gt;
+&lt;a class="reference external image-reference" href="https://vikasontech.github.io/web/images/20181130/img6.png"&gt;&lt;img alt="alternate text" src="https://vikasontech.github.io/web/images/20181130/img6.thumbnail.png" style="width: 600.0px; height: 300.0px;"&gt;&lt;/a&gt;
+&lt;p&gt;You can get the source code from &lt;a class="reference external" href="http://bit.ly/2SkdMwL"&gt;Bitbucket&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description><category>keycloak</category><category>security</category><category>spring-boot</category><guid>https://vikasontech.github.io/web/posts/secure-spring-boot-application-with-keycloak/</guid><pubDate>Fri, 30 Nov 2018 11:19:12 GMT</pubDate></item></channel></rss>

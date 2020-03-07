@@ -22,6 +22,10 @@
   <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://vikasontech.github.io/web/categories/keycloak.xml</loc>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://vikasontech.github.io/web/categories/kotlin.xml</loc>
   <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
@@ -46,8 +50,12 @@
   <lastmod>2020-01-19T08:08:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://vikasontech.github.io/web/categories/security.xml</loc>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://vikasontech.github.io/web/categories/spring-boot.xml</loc>
-  <lastmod>2020-01-19T08:08:00Z</lastmod>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/categories/spring.xml</loc>
@@ -75,10 +83,10 @@
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/rss.xml</loc>
-  <lastmod>2020-01-19T08:08:00Z</lastmod>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://vikasontech.github.io/web/sitemap.xml</loc>
-  <lastmod>2020-01-19T08:08:00Z</lastmod>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
  </sitemap>
 </sitemapindex>

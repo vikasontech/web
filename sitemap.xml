@@ -7,7 +7,11 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://vikasontech.github.io/web/</loc>
-  <lastmod>2020-01-19T08:08:00Z</lastmod>
+  <lastmod>2020-03-07T11:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/2018/</loc>
+  <lastmod>2020-03-07T11:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/2019/</loc>
@@ -19,11 +23,11 @@
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/archive.html</loc>
-  <lastmod>2020-01-19T08:08:00Z</lastmod>
+  <lastmod>2020-03-07T11:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/</loc>
-  <lastmod>2020-01-19T08:08:00Z</lastmod>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/akka-http/</loc>
@@ -40,6 +44,10 @@
  <url>
   <loc>https://vikasontech.github.io/web/categories/docker/</loc>
   <lastmod>2020-01-19T08:08:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/keycloak/</loc>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/kotlin/</loc>
@@ -64,6 +72,10 @@
  <url>
   <loc>https://vikasontech.github.io/web/categories/scala/</loc>
   <lastmod>2020-01-19T08:08:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/categories/security/</loc>
+  <lastmod>2020-03-07T12:19:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/categories/spring-boot/</loc>
@@ -168,6 +180,10 @@
  <url>
   <loc>https://vikasontech.github.io/web/posts/scala-rest-api-with-akka-http/</loc>
   <lastmod>2020-01-19T08:08:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://vikasontech.github.io/web/posts/secure-spring-boot-application-with-keycloak/</loc>
+  <lastmod>2020-03-07T11:20:00Z</lastmod>
  </url>
  <url>
   <loc>https://vikasontech.github.io/web/posts/spring%2Bkotlin%2Bmongo%2Btestcontainer/</loc>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html prefix="" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="configure keycloak for our application">
+<meta name="viewport" content="width=device-width">
+<title>Secure spring boot application with keycloak | Vikas Java Blogs</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://vikasontech.github.io/web/posts/secure-spring-boot-application-with-keycloak/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Vikas Verma">
+<meta property="og:site_name" content="Vikas Java Blogs">
+<meta property="og:title" content="Secure spring boot application with keycloak">
+<meta property="og:url" content="https://vikasontech.github.io/web/posts/secure-spring-boot-application-with-keycloak/">
+<meta property="og:description" content="configure keycloak for our application">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-11-30T18:19:12+07:00">
+<meta property="article:tag" content="keycloak">
+<meta property="article:tag" content="security">
+<meta property="article:tag" content="spring-boot">
+</head>
+<body>
+    
+
+    <header id="header" class="navbar"><div class="container">
+            
+    <div class="brand">
+
+        <div class="brand-text">
+            <a href="https://vikasontech.github.io/web/" title="Vikas Java Blogs" rel="home">
+                Vikas Java Blogs
+            </a>
+        </div>
+
+        <a id="btn-toggle-nav" class="navbar-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+    </div>
+
+            
+    <nav class="navbar-collapse collapse"><ul class="nav">
+<li><a href="../../archive.html">Archive</a></li>
+                <li><a href="../../categories/">Tags</a></li>
+                <li><a href="../../rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav>
+</div>
+    </header><div class="header-padding"> </div>
+
+    
+    <div class="post-header">
+        <div class="container">
+            <div class="title">
+                Secure spring boot application with keycloak
+            </div>
+        </div>
+    </div>
+
+    <div class="post-meta">
+      <div class="container">
+	<div class="meta clearfix">
+	  <div class="authordate">
+	    <time class="timeago" datetime="2018-11-30T18:19:12+07:00">2018/11/30</time>
+</div>
+	  <div class="post-tags">
+	    <div class="tag">
+	      <a href="../../categories/keycloak/" rel="tag">keycloak</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/security/" rel="tag">security</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/spring-boot/" rel="tag">spring-boot</a>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+
+    <div id="post-main" class="main">
+        <div class="container">
+        <div>
+<p>In last blog post of this series we saw how we can configure keycloak for our application.
+Now in this tutorial we
+will see how we can use keycloak with spring boot.</p>
+<p><strong>Prerequisite</strong></p>
+<ul class="simple">
+<li><p>Docker</p></li>
+<li><p>Keycloak</p></li>
+</ul>
+<p><strong>Version</strong></p>
+<ul class="simple">
+<li><p>Spring Boo: 1.5.17.RELEASE</p></li>
+<li><p>Java: 1.8</p></li>
+<li><p>Keycloak: 4.0.5-Final</p></li>
+</ul>
+<div class="section" id="create-sample-spring-boot-application">
+<h2><strong>Create sample spring boot application</strong></h2>
+<p><strong>Dependencies</strong></p>
+<ul class="simple">
+<li><p>Spring-boot-starter-web</p></li>
+<li><p>Keycloak-spring-boot-starter</p></li>
+</ul>
+<p><strong>Create rest controller class</strong></p>
+<p><script src="https://gist.github.com/70017889724bed1e3350b38a40d255ad.js"></script></p>
+<noscript><pre>
+@RestController
+class SecuredResoureces {
+
+	@Autowired
+	@GetMapping("/hello/admin")
+	public String helloAdmin() {
+		return "hello admin!\n";
+	}
+
+	@GetMapping("/hello/user")
+	public String helloUser() {
+		return "hello user!\n";
+	}
+}
+</pre></noscript>
+<p><strong>Secure App with keycloak</strong>
+Add maven dependency for keycloak and spring security -</p>
+<ul class="simple">
+<li><p>spring-boot-starter-security</p></li>
+<li><p>keycloak-spring-boot-starter</p></li>
+</ul>
+<p>Configure keycloak server url and realms details in application.properties file</p>
+<p><script src="https://gist.github.com/4cd59c38757f8f6df9eff7bdf4ff16e4.js"></script></p>
+<noscript><pre>server.port=8081
+
+keycloak.realm = backend-service
+keycloak.bearer-only = true
+keycloak.auth-server-url = http://localhost:9001/auth
+keycloak.ssl-required = external
+keycloak.resource = backend-application
+keycloak.use-resource-role-mappings = true
+keycloak.principal-attribute = preferred_username
+
+</pre></noscript>
+<p><strong>Configure keycloak security settings in the application</strong>
+Add the blow class to configure the keycloak</p>
+<p><script src="https://gist.github.com/82b136433b67a825a323e10b08c82694.js"></script></p>
+<noscript><pre>
+@Configuration
+@EnableWebSecurity
+class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+
+    @Bean
+    public GrantedAuthoritiesMapper grantedAuthoritiesMapper() {
+        SimpleAuthorityMapper mapper = new SimpleAuthorityMapper();
+        mapper.setConvertToUpperCase(true);
+        return mapper;
+    }
+
+    @Override
+    protected KeycloakAuthenticationProvider keycloakAuthenticationProvider() {
+        final KeycloakAuthenticationProvider provider = super.keycloakAuthenticationProvider();
+        provider.setGrantedAuthoritiesMapper(grantedAuthoritiesMapper());
+        return provider;
+    }
+
+    @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(keycloakAuthenticationProvider());
+    }
+
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new NullAuthenticatedSessionStrategy();
+    }
+
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        super.configure(http);
+        http
+                .authorizeRequests()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/user/*").hasRole("USER")
+                .anyRequest().permitAll();
+    }
+
+    @Bean
+    KeycloakConfigResolver keycloakConfigResolver() {
+        return new KeycloakSpringBootConfigResolver();
+    }
+
+    @Bean
+    public FilterRegistrationBean keycloakAuthenticationProcessingFilterRegistrationBean(
+            final KeycloakAuthenticationProcessingFilter filter) {
+        final FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
+        registrationBean.setEnabled(false);
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean keycloakPreAuthActionsFilterRegistrationBean(
+            final KeycloakPreAuthActionsFilter filter) {
+        final FilterRegistrationBean registrationBean = new FilterRegistrationBean(filter);
+        registrationBean.setEnabled(false);
+        return registrationBean;
+    }
+}
+</pre></noscript>
+<p><cite>KeycloakSecurityConfigurer.class</cite> extends <cite>KeycloakWebSecurityConfigurerAdapter.class</cite> that provide convenient base class for creating a <cite>WebSecurityConfigurer</cite> instance secured by Keycloak.</p>
+<p><cite>GrantedAuthoritiesMapper</cite> is mapping interface which use to convert case of the role used in the keycloak from lower case to uppercase.</p>
+<p><cite>KeycloakAuthenticationProvider</cite> perform authentication process.</p>
+<p><cite>NullAuthenticatedSessionStrategy</cite> since we are using rest full service so we can provide null authenticated session strategy.</p>
+<p><cite>KeycloakConfigResolver</cite> use to tell keycloak to use spring boot configuration. Instead
+use the configuration from the spring boot configuration resolver.</p>
+<p><cite>keycloakAuthenticationProcessingFilterRegistrationBean</cite>, <cite>keycloakPreAuthActionsFilterRegistrationBean</cite> are used avoid re-registration of the filter.</p>
+</div>
+<div class="section" id="running-application">
+<h2><strong>Running application</strong></h2>
+<p>start the application using</p>
+<p><cite>mvn spring-boot:run</cite></p>
+<p><cite>Call the admin api without security token</cite></p>
+<a class="reference external image-reference" href="../../images/20181130/img1.png"><img alt="alternate text" src="../../images/20181130/img1.thumbnail.png" style="width: 600.0px; height: 300.0px;"></a>
+<p><cite>Get access token for admin role</cite></p>
+<a class="reference external image-reference" href="../../images/20181130/img2.png"><img alt="alternate text" src="../../images/20181130/img2.thumbnail.png" style="width: 600.0px; height: 300.0px;"></a>
+<p><cite>Access admin api with access token</cite></p>
+<a class="reference external image-reference" href="../../images/20181130/img3.png"><img alt="alternate text" src="../../images/20181130/img3.thumbnail.png" style="width: 600.0px; height: 300.0px;"></a>
+<p><cite>Access user api with access token will give error because user role required for access user service.</cite></p>
+<a class="reference external image-reference" href="../../images/20181130/img4.png"><img alt="alternate text" src="../../images/20181130/img4.thumbnail.png" style="width: 600.0px; height: 300.0px;"></a>
+<p><cite>Get access token for user role</cite></p>
+<a class="reference external image-reference" href="../../images/20181130/img5.png"><img alt="alternate text" src="../../images/20181130/img5.thumbnail.png" style="width: 600.0px; height: 300.0px;"></a>
+<p><cite>Access user service</cite></p>
+<a class="reference external image-reference" href="../../images/20181130/img6.png"><img alt="alternate text" src="../../images/20181130/img6.thumbnail.png" style="width: 600.0px; height: 300.0px;"></a>
+<p>You can get the source code from <a class="reference external" href="http://bit.ly/2SkdMwL">Bitbucket</a></p>
+</div>
+</div>
+        
+
+        </div>
+    </div>
+
+    
+    <footer><div class="container">
+            <div class="social">
+
+
+
+                <div class="social-entry">
+                    <a href="../../rss.xml" target="_blank">
+                        <i class="fa fa-rss"></i> 
+                    </a>
+                </div>
+            </div>
+                <div class="copyright">
+                    Contents © 2020         <a href="mailto:vikason@gmail.com">Vikas Verma</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+                    
+                </div>
+           
+        </div>
+    </footer><script src="../../assets/js/all-nocdn.js" type="text/javascript"></script>
+</body>
+</html>
