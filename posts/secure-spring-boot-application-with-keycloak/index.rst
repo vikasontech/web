@@ -40,6 +40,7 @@ will see how we can use keycloak with spring boot.
 {{%gist 70017889724bed1e3350b38a40d255ad %}}
 
 **Secure App with keycloak**
+
 Add maven dependency for keycloak and spring security - 
 
 - spring-boot-starter-security
@@ -52,6 +53,7 @@ Configure keycloak server url and realms details in application.properties file
 
 
 **Configure keycloak security settings in the application**
+
 Add the blow class to configure the keycloak
 
 {{%gist 82b136433b67a825a323e10b08c82694 %}}
@@ -85,8 +87,6 @@ start the application using
    :scale: 50 %
    :alt: alternate text
 
-
-
 `Get access token for admin role`
 
 .. thumbnail:: /images/20181130/img2.png
@@ -118,7 +118,6 @@ start the application using
    :width: 1200 px
    :scale: 50 %
    :alt: alternate text
-
 
 `Access user service`
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about security)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sat, 07 Mar 2020 12:19:22 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Secure spring boot application with keycloak</title><link>https://vikasontech.github.io/web/posts/secure-spring-boot-application-with-keycloak/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;In last blog post of this series we saw how we can configure keycloak for our application.
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about security)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/security.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sat, 07 Mar 2020 15:49:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Secure spring boot application with keycloak</title><link>https://vikasontech.github.io/web/posts/secure-spring-boot-application-with-keycloak/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;p&gt;In last blog post of this series we saw how we can configure keycloak for our application.
 Now in this tutorial we
 will see how we can use keycloak with spring boot.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Prerequisite&lt;/strong&gt;&lt;/p&gt;
@@ -38,8 +38,8 @@ class SecuredResoureces {
 	}
 }
 &lt;/pre&gt;&lt;/noscript&gt;
-&lt;p&gt;&lt;strong&gt;Secure App with keycloak&lt;/strong&gt;
-Add maven dependency for keycloak and spring security -&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Secure App with keycloak&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Add maven dependency for keycloak and spring security -&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;&lt;p&gt;spring-boot-starter-security&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;keycloak-spring-boot-starter&lt;/p&gt;&lt;/li&gt;
@@ -57,8 +57,8 @@ keycloak.use-resource-role-mappings = true
 keycloak.principal-attribute = preferred_username
 
 &lt;/pre&gt;&lt;/noscript&gt;
-&lt;p&gt;&lt;strong&gt;Configure keycloak security settings in the application&lt;/strong&gt;
-Add the blow class to configure the keycloak&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Configure keycloak security settings in the application&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Add the blow class to configure the keycloak&lt;/p&gt;
 &lt;p&gt;&lt;script src="https://gist.github.com/82b136433b67a825a323e10b08c82694.js"&gt;&lt;/script&gt;
         &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;
 @Configuration
