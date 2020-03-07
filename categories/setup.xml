@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vikas Java Blogs (Posts about setup)</title><link>https://vikasontech.github.io/web/</link><description></description><atom:link href="https://vikasontech.github.io/web/categories/setup.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:vikason@gmail.com"&gt;Vikas Verma&lt;/a&gt; </copyright><lastBuildDate>Sat, 07 Mar 2020 16:14:51 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Setup Keycloak with Docker</title><link>https://vikasontech.github.io/web/posts/setup-keycloak-with-docker/</link><dc:creator>Vikas Verma</dc:creator><description>&lt;div&gt;&lt;div class="section" id="introduction-of-keycloak"&gt;
+&lt;h2&gt;&lt;strong&gt;Introduction of Keycloak&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Open Source Identity and Access Management For Modern Applications and Services. It add authentication to applications and secure services with minimum fuss. No need to deal with storing users or authenticating users. It's all available out of the box.&lt;/p&gt;
+&lt;p&gt;You'll even get advanced features such as User Federation, Identity Brokering and Social Login.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Prerequisites:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Docker:&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since we are using Docker to install Keycloak; it should be installed on your machine. If it is not you can download and install it from the link given below, it’s pretty straight forward.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://docs.docker.com/docker-for-mac/"&gt;Mac/Linux&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a class="reference external" href="https://docs.docker.com/docker-for-windows/install/"&gt;Windows&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Create docker compose file&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We use keycloak with mysql database to persist the user data.
+Use the below docker-compose.yml file to pull and start the docker server
+docker-compose.yml&lt;/p&gt;
+&lt;p&gt;&lt;script src="https://gist.github.com/24c4ca4ec051b0ad22a912f19807a06a.js"&gt;&lt;/script&gt;
+        &lt;/p&gt;&lt;noscript&gt;&lt;pre&gt;version: '3'
+services:
+  mysql:
+    image: mysql:5.6.34
+    networks:
+      - keycloak-network
+    environment:
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - ./dump:/docker-entrypoint-initdb.d
+
+
+  keycloak:
+    image: jboss/keycloak
+    depends_on:
+      - mysql
+    networks:
+      - keycloak-network
+    ports:
+      - 9001:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+
+networks:
+  keycloak-network:
+~                             &lt;/pre&gt;&lt;/noscript&gt;
+&lt;p&gt;In docker compose file we povide default user name and password for the keycloak use and described in the docker hub for the keycloak image.
+Our mysql and keycloak server are running on the docker network “Keycloak-network”.
+Start keycloak and mysql server&lt;/p&gt;
+&lt;p&gt;Run &lt;cite&gt;docker-compose up&lt;/cite&gt; command on the terminal, once the server up you can see the output as below -&lt;/p&gt;
+&lt;img alt="https://1.bp.blogspot.com/-YjgKqAuohoQ/W_-ZIs5DHbI/AAAAAAAAkRo/ZLgbb5qaDrY0Pol1uuei7rrlqVUhXwjNACEwYBhgL/s320/Screen%2BShot%2B2561-11-29%2Bat%2B14.44.31.png" src="https://1.bp.blogspot.com/-YjgKqAuohoQ/W_-ZIs5DHbI/AAAAAAAAkRo/ZLgbb5qaDrY0Pol1uuei7rrlqVUhXwjNACEwYBhgL/s320/Screen%2BShot%2B2561-11-29%2Bat%2B14.44.31.png" style="width: 600.0px; height: 50.0px;"&gt;
+&lt;p&gt;Go the browser and type the url - &lt;cite&gt;http: //localhost:9001&lt;/cite&gt; Note: remember we expose the port in the docker-compose file&lt;/p&gt;
+&lt;img alt="https://lh3.googleusercontent.com/XF8uOYI14dqFc6ns-PLgc_ewrxjIfryAwHofSAFKVA-dWe2FWzQ5Csu-24PAtvTszqOOXD_PZBSG5RtI4yH7JqAxvgCe-GhoGbnfV2b-xTZ0gpTd_KgDF1oAnw5UthP2WfLHfzOV" src="https://lh3.googleusercontent.com/XF8uOYI14dqFc6ns-PLgc_ewrxjIfryAwHofSAFKVA-dWe2FWzQ5Csu-24PAtvTszqOOXD_PZBSG5RtI4yH7JqAxvgCe-GhoGbnfV2b-xTZ0gpTd_KgDF1oAnw5UthP2WfLHfzOV" style="width: 600.0px; height: 300.0px;"&gt;
+&lt;p&gt;You can now login keycloak from the username and password you provided in docker-compose file. In our case we use username &lt;cite&gt;admin&lt;/cite&gt; and password also &lt;cite&gt;admin&lt;/cite&gt;&lt;/p&gt;
+&lt;img alt="https://lh5.googleusercontent.com/fBLFQeZcVyS_khIBWcdkQQCS_XutZeIhoW8XfCQDpOEovXz63dqaHpqWF80l4HYi7BhhqtGgPv9bsGlIv3dXqG0b3LMDhV6hcRawFpWizRdMdYSdCNq2CKUl8MMbmYp7R3GDvhrm" src="https://lh5.googleusercontent.com/fBLFQeZcVyS_khIBWcdkQQCS_XutZeIhoW8XfCQDpOEovXz63dqaHpqWF80l4HYi7BhhqtGgPv9bsGlIv3dXqG0b3LMDhV6hcRawFpWizRdMdYSdCNq2CKUl8MMbmYp7R3GDvhrm" style="width: 600.0px; height: 300.0px;"&gt;
+&lt;p&gt;After login you will see the default realm &lt;cite&gt;master&lt;/cite&gt; as below -&lt;/p&gt;
+&lt;img alt="https://lh3.googleusercontent.com/pzoH0ZM1x4QcdbP_MjoNYtOyCIWtrHHFg_WVBd3AwKFuSOxxakNMtbGFxPUX_k-Mb12VeCehREtpN1Bi9ME1Bp7_fs9pZbDt01_0k9S509CBTwumb5oo92eEcwjkzdNaQnbn3LOC" src="https://lh3.googleusercontent.com/pzoH0ZM1x4QcdbP_MjoNYtOyCIWtrHHFg_WVBd3AwKFuSOxxakNMtbGFxPUX_k-Mb12VeCehREtpN1Bi9ME1Bp7_fs9pZbDt01_0k9S509CBTwumb5oo92eEcwjkzdNaQnbn3LOC" style="width: 600.0px; height: 300.0px;"&gt;
+&lt;/div&gt;
+&lt;div class="section" id="core-concept-and-terms-of-keycloak"&gt;
+&lt;h2&gt;&lt;strong&gt;Core concept and terms of keycloak -&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Realms:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A realm manages a set of users, credentials, roles, and groups. A user belongs to and logs into a realm. Realms are isolated from one another and can only manage and authenticate the users that they control.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Groups:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Groups manage groups of users. Attributes can be defined for a group. You can map roles to a group as well. Users that become members of a group inherit the attributes and role mappings that group defines.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Clients:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Clients are entities that can request Keycloak to authenticate a user. Most often, clients are applications and services that want to use Keycloak to secure themselves and provide a single sign-on solution. Clients can also be entities that just want to request identity information or an access token so that they can securely invoke other services on the network that are secured by Keycloak.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Client scopes:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;When a client is registered, you must define protocol mappers and role scope mappings for that client. It is often useful to store a client scope, to make creating new clients easier by sharing some common settings. This is also useful for requesting some claims or roles to be conditionally based on the value of scope parameter. Keycloak provides the concept of a client scope for this.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Client role:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Clients can define roles that are specific to them. This is basically a role namespace dedicated to the client.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Identity token:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;A token that provides identity information about the user. Part of the OpenID Connect specification. You can get more details about this terms here !&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Conclusion:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this blog we learn how to setup keycloak using docker, in next blog we will create an application and secure it using keycloak.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Reference https:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://www.keycloak.org/docs/latest/getting_started/index.html"&gt;https://www.keycloak.org/docs/latest/getting_started/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/index.html"&gt;https://www.keycloak.org/docs/latest/server_admin/index.html&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;/div&gt;</description><category>docker</category><category>keycloak</category><category>setup</category><guid>https://vikasontech.github.io/web/posts/setup-keycloak-with-docker/</guid><pubDate>Wed, 28 Nov 2018 15:54:46 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html prefix="" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Introduction of Keycloak AAA">
+<meta name="viewport" content="width=device-width">
+<title>Setup Keycloak with Docker | Vikas Java Blogs</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://vikasontech.github.io/web/posts/setup-keycloak-with-docker/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Vikas Verma">
+<meta property="og:site_name" content="Vikas Java Blogs">
+<meta property="og:title" content="Setup Keycloak with Docker">
+<meta property="og:url" content="https://vikasontech.github.io/web/posts/setup-keycloak-with-docker/">
+<meta property="og:description" content="Introduction of Keycloak AAA">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-11-28T22:54:46+07:00">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="keycloak">
+<meta property="article:tag" content="setup">
+</head>
+<body>
+    
+
+    <header id="header" class="navbar"><div class="container">
+            
+    <div class="brand">
+
+        <div class="brand-text">
+            <a href="https://vikasontech.github.io/web/" title="Vikas Java Blogs" rel="home">
+                Vikas Java Blogs
+            </a>
+        </div>
+
+        <a id="btn-toggle-nav" class="navbar-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+    </div>
+
+            
+    <nav class="navbar-collapse collapse"><ul class="nav">
+<li><a href="../../archive.html">Archive</a></li>
+                <li><a href="../../categories/">Tags</a></li>
+                <li><a href="../../rss.xml">RSS feed</a></li>
+    
+    
+    </ul></nav>
+</div>
+    </header><div class="header-padding"> </div>
+
+    
+    <div class="post-header">
+        <div class="container">
+            <div class="title">
+                Setup Keycloak with Docker
+            </div>
+        </div>
+    </div>
+
+    <div class="post-meta">
+      <div class="container">
+	<div class="meta clearfix">
+	  <div class="authordate">
+	    <time class="timeago" datetime="2018-11-28T22:54:46+07:00">2018/11/28</time>
+</div>
+	  <div class="post-tags">
+	    <div class="tag">
+	      <a href="../../categories/docker/" rel="tag">docker</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/keycloak/" rel="tag">keycloak</a>
+	    </div>
+	    <div class="tag">
+	      <a href="../../categories/setup/" rel="tag">setup</a>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+
+    <div id="post-main" class="main">
+        <div class="container">
+        <div>
+<div class="section" id="introduction-of-keycloak">
+<h2><strong>Introduction of Keycloak</strong></h2>
+<p>Open Source Identity and Access Management For Modern Applications and Services. It add authentication to applications and secure services with minimum fuss. No need to deal with storing users or authenticating users. It's all available out of the box.</p>
+<p>You'll even get advanced features such as User Federation, Identity Brokering and Social Login.</p>
+<p><strong>Prerequisites:</strong></p>
+<ul class="simple">
+<li><p>Docker:</p></li>
+</ul>
+<p>Since we are using Docker to install Keycloak; it should be installed on your machine. If it is not you can download and install it from the link given below, it’s pretty straight forward.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.docker.com/docker-for-mac/">Mac/Linux</a></p></li>
+<li><p><a class="reference external" href="https://docs.docker.com/docker-for-windows/install/">Windows</a></p></li>
+</ul>
+<p><strong>Create docker compose file</strong></p>
+<p>We use keycloak with mysql database to persist the user data.
+Use the below docker-compose.yml file to pull and start the docker server
+docker-compose.yml</p>
+<p><script src="https://gist.github.com/24c4ca4ec051b0ad22a912f19807a06a.js"></script></p>
+<noscript><pre>version: '3'
+services:
+  mysql:
+    image: mysql:5.6.34
+    networks:
+      - keycloak-network
+    environment:
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - ./dump:/docker-entrypoint-initdb.d
+
+
+  keycloak:
+    image: jboss/keycloak
+    depends_on:
+      - mysql
+    networks:
+      - keycloak-network
+    ports:
+      - 9001:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+
+networks:
+  keycloak-network:
+~                             </pre></noscript>
+<p>In docker compose file we povide default user name and password for the keycloak use and described in the docker hub for the keycloak image.
+Our mysql and keycloak server are running on the docker network “Keycloak-network”.
+Start keycloak and mysql server</p>
+<p>Run <cite>docker-compose up</cite> command on the terminal, once the server up you can see the output as below -</p>
+<img alt="https://1.bp.blogspot.com/-YjgKqAuohoQ/W_-ZIs5DHbI/AAAAAAAAkRo/ZLgbb5qaDrY0Pol1uuei7rrlqVUhXwjNACEwYBhgL/s320/Screen%2BShot%2B2561-11-29%2Bat%2B14.44.31.png" src="https://1.bp.blogspot.com/-YjgKqAuohoQ/W_-ZIs5DHbI/AAAAAAAAkRo/ZLgbb5qaDrY0Pol1uuei7rrlqVUhXwjNACEwYBhgL/s320/Screen%2BShot%2B2561-11-29%2Bat%2B14.44.31.png" style="width: 600.0px; height: 50.0px;"><p>Go the browser and type the url - <cite>http: //localhost:9001</cite> Note: remember we expose the port in the docker-compose file</p>
+<img alt="https://lh3.googleusercontent.com/XF8uOYI14dqFc6ns-PLgc_ewrxjIfryAwHofSAFKVA-dWe2FWzQ5Csu-24PAtvTszqOOXD_PZBSG5RtI4yH7JqAxvgCe-GhoGbnfV2b-xTZ0gpTd_KgDF1oAnw5UthP2WfLHfzOV" src="https://lh3.googleusercontent.com/XF8uOYI14dqFc6ns-PLgc_ewrxjIfryAwHofSAFKVA-dWe2FWzQ5Csu-24PAtvTszqOOXD_PZBSG5RtI4yH7JqAxvgCe-GhoGbnfV2b-xTZ0gpTd_KgDF1oAnw5UthP2WfLHfzOV" style="width: 600.0px; height: 300.0px;"><p>You can now login keycloak from the username and password you provided in docker-compose file. In our case we use username <cite>admin</cite> and password also <cite>admin</cite></p>
+<img alt="https://lh5.googleusercontent.com/fBLFQeZcVyS_khIBWcdkQQCS_XutZeIhoW8XfCQDpOEovXz63dqaHpqWF80l4HYi7BhhqtGgPv9bsGlIv3dXqG0b3LMDhV6hcRawFpWizRdMdYSdCNq2CKUl8MMbmYp7R3GDvhrm" src="https://lh5.googleusercontent.com/fBLFQeZcVyS_khIBWcdkQQCS_XutZeIhoW8XfCQDpOEovXz63dqaHpqWF80l4HYi7BhhqtGgPv9bsGlIv3dXqG0b3LMDhV6hcRawFpWizRdMdYSdCNq2CKUl8MMbmYp7R3GDvhrm" style="width: 600.0px; height: 300.0px;"><p>After login you will see the default realm <cite>master</cite> as below -</p>
+<img alt="https://lh3.googleusercontent.com/pzoH0ZM1x4QcdbP_MjoNYtOyCIWtrHHFg_WVBd3AwKFuSOxxakNMtbGFxPUX_k-Mb12VeCehREtpN1Bi9ME1Bp7_fs9pZbDt01_0k9S509CBTwumb5oo92eEcwjkzdNaQnbn3LOC" src="https://lh3.googleusercontent.com/pzoH0ZM1x4QcdbP_MjoNYtOyCIWtrHHFg_WVBd3AwKFuSOxxakNMtbGFxPUX_k-Mb12VeCehREtpN1Bi9ME1Bp7_fs9pZbDt01_0k9S509CBTwumb5oo92eEcwjkzdNaQnbn3LOC" style="width: 600.0px; height: 300.0px;">
+</div>
+<div class="section" id="core-concept-and-terms-of-keycloak">
+<h2><strong>Core concept and terms of keycloak -</strong></h2>
+<p><strong>Realms:</strong></p>
+<p>A realm manages a set of users, credentials, roles, and groups. A user belongs to and logs into a realm. Realms are isolated from one another and can only manage and authenticate the users that they control.</p>
+<p><strong>Groups:</strong></p>
+<p>Groups manage groups of users. Attributes can be defined for a group. You can map roles to a group as well. Users that become members of a group inherit the attributes and role mappings that group defines.</p>
+<p><strong>Clients:</strong></p>
+<p>Clients are entities that can request Keycloak to authenticate a user. Most often, clients are applications and services that want to use Keycloak to secure themselves and provide a single sign-on solution. Clients can also be entities that just want to request identity information or an access token so that they can securely invoke other services on the network that are secured by Keycloak.</p>
+<p><strong>Client scopes:</strong></p>
+<p>When a client is registered, you must define protocol mappers and role scope mappings for that client. It is often useful to store a client scope, to make creating new clients easier by sharing some common settings. This is also useful for requesting some claims or roles to be conditionally based on the value of scope parameter. Keycloak provides the concept of a client scope for this.</p>
+<p><strong>Client role:</strong></p>
+<p>Clients can define roles that are specific to them. This is basically a role namespace dedicated to the client.</p>
+<p><strong>Identity token:</strong></p>
+<p>A token that provides identity information about the user. Part of the OpenID Connect specification. You can get more details about this terms here !</p>
+<p><strong>Conclusion:</strong></p>
+<p>In this blog we learn how to setup keycloak using docker, in next blog we will create an application and secure it using keycloak.</p>
+<p><strong>Reference https:</strong></p>
+<p><a class="reference external" href="https://www.keycloak.org/docs/latest/getting_started/index.html">https://www.keycloak.org/docs/latest/getting_started/index.html</a></p>
+<p><a class="reference external" href="https://www.keycloak.org/docs/latest/server_admin/index.html">https://www.keycloak.org/docs/latest/server_admin/index.html</a></p>
+</div>
+</div>
+        
+
+        </div>
+    </div>
+
+    
+    <footer><div class="container">
+            <div class="social">
+
+
+
+                <div class="social-entry">
+                    <a href="../../rss.xml" target="_blank">
+                        <i class="fa fa-rss"></i> 
+                    </a>
+                </div>
+            </div>
+                <div class="copyright">
+                    Contents © 2020         <a href="mailto:vikason@gmail.com">Vikas Verma</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+                    
+                </div>
+           
+        </div>
+    </footer><script src="../../assets/js/all-nocdn.js" type="text/javascript"></script>
+</body>
+</html>
