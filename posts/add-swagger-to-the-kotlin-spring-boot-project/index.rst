@@ -1,10 +1,10 @@
-.. title: Add swagger to the kotlin spring 
+.. title: Add swagger to the kotlin spring with webflux 
 .. slug: add-swagger-to-the-kotlin-spring-boot-project
 .. date: 2020-01-16 16:22:54 UTC+07:00
-.. tags: swagger, kotlin, spring-boot
+.. tags: swagger, kotlin, spring-boot,  webflux
 .. category: technical
 .. link: 
-.. description: Add swagger to the kotlin spring boot project
+.. description: Add swagger to the kotlin spring boot and webflux project
 .. type: text
 
 
